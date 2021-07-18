@@ -6,7 +6,9 @@
 /*/*
 
 !.gitignore
+!.gitmodules
 !.editorconfig
+!/con
 
 # fish
 # !/fish/config.fish
