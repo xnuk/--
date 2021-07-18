@@ -30,11 +30,14 @@
 !/kime
 !/kime/layouts/
 
+# environment.d
+!/environment.d/env.conf
+!/environment.d/env
+
 !/feh/buttons
 !/gtk-3.0/settings.ini
 !/tmux/tmux.conf
 !/chips/plugin.yaml
-!/environment.d/env.conf
 !/gsimplecal/config
 !/mako/config
 !/rofi/*
