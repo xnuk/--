@@ -1,0 +1,18 @@
+#!/bin/sh
+set -euf
+
+line=$(lsblk --paths --json \
+-o name,hotplug,fstype,type,size,model,mountpoint,label,partlabel | jq -r '
+.blockdevices[] | .model as $model | .children[] | .model |= $model
+| select(.mountpoint == null and .type == "part" and .fstype != null)
+|
+[ .name
+, if .hotplug then "^\(.fstype)" else .fstype end
+, .size
+, .model
+, if .label == null then .partlabel else .label end
+]
+| join("\t")
+' | fzf --reverse)
+
+udisksctl mount "--block-device=$(echo "$line" | cut -f1)" "$@"

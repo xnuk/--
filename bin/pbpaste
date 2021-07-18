@@ -1,0 +1,8 @@
+#!/bin/sh
+set -euf
+if wl-paste -l | rg 'text/plain;charset=utf-8' --fixed-strings --line-regexp >/dev/null 2>&1
+then
+	wl-paste -n "$@" | sed 's/\r$//'
+else
+	wl-paste "$@"
+fi

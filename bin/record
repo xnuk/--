@@ -1,0 +1,4 @@
+#!/bin/sh
+set -euf
+slurp="$(slurp -d)"
+wf-recorder -g "$slurp" "$@"
