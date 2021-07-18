@@ -1,0 +1,68 @@
+[theme]
+name = "slick"
+
+[theme.overrides]
+idle_bg = "#000000"
+good_bg = "#000000"
+good_fg = "#dddddd"
+alternating_tint_bg = '#202020'
+
+# 아 진짜 코드 어떻게 짰길래 맞는 게 없어 -_-
+separator = '<tt><span font="11" font_weight="heavy"></span></tt>'
+# separator = '<tt></tt>'
+
+[icons]
+name = "awesome5"
+[icons.overrides]
+netw_wireless = ''
+net_wired = ' '
+net_up = ' '
+net_down = ' '
+
+[[block]]
+block = "focused_window"
+max_width = 50
+
+[[block]]
+block = 'custom'
+command = 'widget-uptime'
+interval = 120
+
+[[block]]
+block = 'net'
+device = 'enp31s0'
+format = '{ip} {speed_up;M} {speed_down;M}'
+format_alt = "{ipv6}"
+hide_inactive = true
+hide_missing = true
+
+[[block]]
+block = 'memory'
+format_mem = '{mem_used;G} / {mem_total;G}'
+clickable = false
+on_click = 'swaymsg exec nemo'
+
+[[block]]
+block = 'load'
+format = '{1m} {5m} {15m}'
+
+[[block]]
+block = 'temperature'
+collapsed = false
+interval = 5
+format = '{min} {max}'
+good = 45
+idle = 54
+info = 60
+warning = 70
+
+[[block]]
+block = 'time'
+interval = 1
+format = '%y-%m-%d %-j-%-U-%w %T'
+on_click = 'swaymsg exec gsimplecal'
+
+[[block]]
+block = 'sound'
+step_width = 1
+on_click = 'swaymsg exec pavucontrol'

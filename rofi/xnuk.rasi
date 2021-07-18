@@ -1,0 +1,81 @@
+* {
+	font: "Noto Sans CJK KR 9";
+	background-color: transparent;
+	border-color: transparent;
+	text-color: #ddd;
+}
+
+
+window {
+	background-color: rgba(46, 52, 64, 0.85);
+	border-color: transparent;
+	border: 0;
+	text-color: White;
+	padding: 24px;
+	anchor: north;
+	location: center;
+	y-offset: -200px;
+}
+
+mainbox {
+	border: 0;
+	padding: 0;
+}
+
+inputbar {
+	children: [textbox-caret, entry, case-indicator, num-filtered-rows, textbox-slash, num-rows, textbox-slash, prompt];
+	padding: 0 0 20px;
+}
+
+textbox-caret {
+	expand: false;
+	str: "🤔";
+	text-color: rgba(200, 200, 200, 0.5);
+	padding: 5px 5px 0 0;
+	font: "Noto Color Emoji 12";
+	vertical-align: 1;
+}
+
+textbox-slash {
+	expand: false;
+	str: "/";
+	vertical-align: 1;
+	text-color: rgba(200, 200, 200, 0.5);
+}
+
+num-filtered-rows, num-rows, prompt {
+	vertical-align: 1;
+}
+
+entry {
+	font: "Noto Sans CJK KR 14";
+}
+
+// #case-indicator {
+// 	spacing: 0;
+// 	text-color: Black;
+// }
+
+element {
+	padding: 2px 4px;
+}
+
+listview {
+	spacing: 0;
+	scrollbar: false;
+	dynamic: true;
+	fixed-height: false;
+}
+
+element-text {
+	highlight: bold #fff;
+}
+
+element.selected {
+	background-color: rgba(46, 52, 64, 0.8);
+}
+
+element-icon {
+	enabled: true;
+}
+

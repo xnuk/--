@@ -1,0 +1,14 @@
+configuration {
+	modi: "combi";
+	combi-modi: "drun,run";
+
+	show-icons: true;
+	terminal: "alacritty";
+
+	sidebar-mode: false;
+
+	separator-style: "none";
+	theme: "./xnuk.rasi";
+
+	combi-hide-mode-prefix: true;
+}

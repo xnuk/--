@@ -1,0 +1,105 @@
+verbosity = 2
+snippet_support = true
+
+[server]
+timeout = 1800
+
+[semantic_tokens]
+type = 'type'
+variable = 'variable'
+namespace = 'module'
+function = 'function'
+string = 'string'
+keyword = 'keyword'
+operator = 'operator'
+comment = 'comment'
+
+[semantic_token_modifiers]
+documentation = 'documentation'
+# readonly = 'default+d'
+
+# kak-lsp next
+# [[semantic_tokens]]
+# token = 'comment'
+# face = 'documentation'
+# modifiers = ['documentation']
+
+# [[semantic_tokens]]
+# token = 'comment'
+# face = 'comment'
+
+# [[semantic_tokens]]
+# token = 'function'
+# face = 'function'
+
+# [[semantic_tokens]]
+# token = 'keyword'
+# face = 'keyword'
+
+# [[semantic_tokens]]
+# token = 'namespace'
+# face = 'module'
+
+# [[semantic_tokens]]
+# token = 'operator'
+# face = 'operator'
+
+# [[semantic_tokens]]
+# token = 'string'
+# face = 'string'
+
+# [[semantic_tokens]]
+# token = 'type'
+# face = 'type'
+
+# [[semantic_tokens]]
+# token = 'variable'
+# face = 'default+d'
+# modifiers = ['readonly']
+
+# [[semantic_tokens]]
+# token = 'variable'
+# face = 'default+d'
+# modifiers = ['constant']
+
+# [[semantic_tokens]]
+# token = 'variable'
+# face = 'variable'
+
+
+[language.tsx]
+filetypes = ['typescript']
+roots = ['.git', 'tsconfig.json']
+command = 'typescript-language-server'
+args = [ '--stdio' ]
+# command = 'deno'
+# args = ['lsp']
+
+[language.rust]
+filetypes = ['rust']
+roots = ['.git', 'Cargo.toml']
+command = 'rls'
+
+[language.haskell]
+filetypes = ['haskell']
+roots = ['.git', 'Setup.hs', 'package.yaml']
+command = 'haskell-language-server-wrapper'
+args = [ '--lsp' ]
+
+[language.json]
+filetypes = ['json']
+roots = ['package.json']
+command = 'vscode-json-languageserver'
+args = ['--stdio']
+
+[language.yaml]
+filetypes = ['yaml']
+roots = ['.git']
+command = 'yaml-language-server'
+args = ['--stdio']
+
+[language.scss]
+filetypes = ['scss']
+roots = ['.git']
+command = 'stylelint-lsp'
+args = ['--stdio']

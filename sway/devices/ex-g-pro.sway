@@ -1,0 +1,17 @@
+input 1390:304:EX-G_Pro_TrackBall {
+	accel_profile adaptive
+	scroll_button BTN_BACK
+	scroll_method on_button_down
+}
+
+input 1390:296:ELECOM_TrackBall_Mouse_EX-G_Pro_TrackBall_Mouse {
+	accel_profile adaptive
+	scroll_button BTN_BACK
+	scroll_method on_button_down
+}
+
+input 1390:297:ELECOM_TrackBall_Mouse_EX-G_Pro_TrackBall {
+	accel_profile adaptive
+	scroll_button BTN_BACK
+	scroll_method on_button_down
+}

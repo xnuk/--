@@ -1,0 +1,41 @@
+# This is repository-specific gitignore file.
+# Global gitignore file is in /git/ignore.
+
+/*
+!/*/
+/*/*
+
+!.gitignore
+!.editorconfig
+
+# fish
+# !/fish/config.fish
+# !/fish/functions/
+
+# kakoune
+!/kak/*
+/kak/plugins
+
+# sway
+!/sway/*
+/sway/display.sway
+
+# git
+!/git/config
+!/git/ignore
+
+# kime
+!/kime/config.yaml
+!/kime/layouts/
+
+!/feh/buttons
+!/gtk-3.0/settings.ini
+!/tmux/tmux.conf
+!/chips/plugin.yaml
+!/environment.d/env.conf
+!/gsimplecal/config
+!/mako/config
+!/rofi/*
+
+
+!/bin/

@@ -1,0 +1,53 @@
+[alias]
+co = checkout
+cm = commit
+st = status -sb
+sw = "!f(){ if [ $# -eq 0 ]; then git switch $(branch --height=40%) $@; else git switch $@; fi; git status -sb; }; f"
+ls = ls-files
+add = add -v
+lg = "!git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --reflog $@"
+unstage = reset
+sign = rebase --exec 'git commit --amend --no-edit -n -S'
+gone = ! "git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}' | xargs -r git branch -D"
+
+[url "git@github.com:"]
+insteadOf = "github:"
+
+[url "git@github.com:"]
+insteadOf = "gh:"
+
+[url "git@gist.github.com:"]
+insteadOf = "gist:"
+pushInsteadOf = "gist:"
+
+[url "git@github.com:xnuk/"]
+insteadOf = "xnuk:"
+
+[push]
+default = current
+
+[init]
+defaultBranch = develop
+
+[core]
+editor = /usr/bin/kak
+excludesfile = ~/.config/git/ignore
+
+[diff]
+algorithm = patience
+patience = true
+
+[gpg]
+program = gpg2
+
+[pull]
+rebase = true
+
+[commit]
+gpgsign = true
+
+[include]
+path = ~/.gitconfig
+
+[includeIf "gitdir:~/xnuk/"]
+path = ~/xnuk/.gitconfig
