@@ -1,3 +1,7 @@
 [submodule "con"]
 	path = con
 	url = https://github.com/xnuk/apple-apfs-test.git
+[submodule "kime"]
+	path = kime
+	url = git@github.com:xnuk/layouts.git
+	branch = kime

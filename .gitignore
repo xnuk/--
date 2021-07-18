@@ -27,7 +27,7 @@
 !/git/ignore
 
 # kime
-!/kime/config.yaml
+!/kime
 !/kime/layouts/
 
 !/feh/buttons
