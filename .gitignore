@@ -24,6 +24,7 @@
 # sway
 !/sway/*
 /sway/display.sway
+/sway/bar.toml
 
 # git
 !/git/config
