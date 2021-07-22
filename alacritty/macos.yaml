@@ -1,0 +1,65 @@
+window:
+  dynamic_title: true
+  decorations: buttonless
+
+font:
+  normal:
+    family: MesloLGS Nerd Font Mono
+  size: 13.0
+  offset: {x: 0, y: 0}
+  glyph_offset: {x: 0, y: 1}
+
+  use_thin_strokes: true
+
+shell:
+  program: /usr/local/bin/fish
+  args:
+    - --login
+
+key_bindings:
+# Checkout https://en.wikipedia.org/wiki/C0_and_C1_control_codes#C0_controls
+- mods: Command
+  key: Q
+  chars: "\x11"
+
+- mods: Control
+  key: Q
+  chars: "\x11"
+
+- mods: Command
+  key: O
+  chars: "\x01o"
+
+- mods: Command
+  key: N
+  chars: "\x01n"
+- mods: Command
+  key: E
+  chars: "\x01e"
+- mods: Command
+  key: I
+  chars: "\x01i"
+- mods: Command
+  key: U
+  chars: "\x01u"
+
+- mods: Command|Control
+  key: N
+  chars: "\x01\x0e"
+- mods: Command|Control
+  key: E
+  chars: "\x01\x05"
+- mods: Command|Control
+  key: I
+  chars: "\x01\x09"
+- mods: Command|Control
+  key: U
+  chars: "\x01\x15"
+
+- mods: Command
+  key: T
+  chars: "\x01c"
+
+- mods: Command
+  key: F
+  action: SearchForward

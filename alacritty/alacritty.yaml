@@ -1,0 +1,59 @@
+import:
+- ~/.config/alacritty/base16-dark.yaml
+- ~/.config/alacritty/linux.yaml
+
+live_config_reload: true
+
+alt_send_esc: true
+
+mouse_bindings:
+- mouse: Middle
+  action: ResetFontSize
+
+key_bindings:
+- mods: Control|Shift
+  key: C
+  action: Copy
+- mods: Super
+  key: C
+  action: Copy
+
+- mods: Control|Shift
+  key: V
+  action: Paste
+- mods: Super
+  key: V
+  action: Paste
+
+- mods: Control|Shift
+  key: D
+  action: Paste
+- mods: Super
+  key: D
+  action: Paste
+
+- mods: Control
+  key: Return
+  action: SpawnNewInstance
+- mods: Super
+  key: Return
+  action: SpawnNewInstance
+
+- mods: Super|Control|Alt|Shift
+  key: I
+  action: IncreaseFontSize
+- mods: Super|Control|Alt|Shift
+  key: N
+  action: DecreaseFontSize
+- mods: Super|Control|Alt|Shift
+  key: Space
+  action: ResetFontSize
+- mods: Super|Control|Alt|Shift
+  key: U
+  action: ScrollHalfPageUp
+- mods: Super|Control|Alt|Shift
+  key: E
+  action: ScrollHalfPageDown
+- mods: Super|Control|Alt|Shift
+  key: F
+  action: SearchBackward
