@@ -470,6 +470,16 @@ hook global WinCreate .* %{
 
 		update-modeline window
 	}
+
+	try 'git show-diff'
+}
+
+hook global BufWritePost .* %{
+	try 'git show-diff'
+}
+
+hook global NormalIdle .* %{
+	try 'git show-diff'
 }
 
 hook global BufCreate \*scratch\* %{
