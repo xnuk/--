@@ -23,6 +23,9 @@ pushInsteadOf = "gist:"
 [url "git@github.com:xnuk/"]
 insteadOf = "xnuk:"
 
+[url "git@git.sr.ht"]
+insteadOf = "sr"
+
 [push]
 default = current
 
