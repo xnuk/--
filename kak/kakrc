@@ -442,8 +442,9 @@ hook global BufCreate .*[.](conf|gitignore) %{
 	add-highlighter buffer/ regex '^#[^\n]*$' 0:comment
 }
 
-hook global BufCreate .*[.](xlf) %{
+hook global BufCreate .*[.](xlf|xsl|xml|xslt) %{
 	set-option buffer filetype 'xml'
+	map global insert <a-ret> '<a-;>x<a-;>| emmet<ret>'
 }
 
 hook global BufCreate .*[.](sway) %{
