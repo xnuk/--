@@ -11,8 +11,6 @@ set -gx XDG_DATA_HOME $HOME/.local/share
 
 set -gx NODE_OPTIONS '--experimental-repl-await'
 set -gx NPM_CONFIG_USERCONFIG $HOME/.config/npm/npmrc
-set -gx NPM_CONFIG_PREFIX $HOME/.npm/global-packages
-set -gx NPM_CONFIG_ENGINE_STRICT true
 set -gx N_PREFIX $HOME/.npm/nodes
 set -gx N_PRESERVE_NPM 1
 

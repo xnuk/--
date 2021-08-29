@@ -38,6 +38,9 @@
 !/environment.d/env.conf
 !/environment.d/env
 
+# npm
+!/npm/*
+
 !/feh/buttons
 !/gtk-3.0/settings.ini
 !/tmux/tmux.conf
