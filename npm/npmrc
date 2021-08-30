@@ -2,6 +2,6 @@ engine-strict = true
 prefix = ${HOME}/.npm/global-packages
 
 # pnpm
-cache-dir = ${HOME}/.cache/pnpm
+cache-dir = ${HOME}/.cache/pnpm/cache
 store-dir = ${HOME}/.cache/pnpm/store
 state-dir = ${HOME}/.cache/pnpm/state
