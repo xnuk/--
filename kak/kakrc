@@ -93,8 +93,8 @@ define-command fzf-real-buffer-file-search %{
 	]
 }
 
-set-option -add global ui_options ncurses_status_on_top=yes
-set-option -add global ui_options ncurses_assistant=cat
+set-option -add global ui_options terminal_status_on_top=yes
+set-option -add global ui_options terminal_assistant=cat
 
 define-command combined-space -docstring 'try ; first, then <space>.' %{
 	execute-keys %sh{
