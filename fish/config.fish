@@ -11,6 +11,7 @@ set -gx XDG_DATA_HOME $HOME/.local/share
 
 set -gx NODE_OPTIONS '--experimental-repl-await'
 set -gx NPM_CONFIG_USERCONFIG $HOME/.config/npm/npmrc
+set -gx NPM_CONFIG_PREFIX $HOME/.npm/global-packages
 set -gx N_PREFIX $HOME/.npm/nodes
 set -gx N_PRESERVE_NPM 1
 
@@ -113,4 +114,3 @@ abbr --add -g preonic "dfu-util -d 0483:DF11 -a 0 -s 0x08000000:leave -w -D"
 function fish_command_not_found
 	__fish_default_command_not_found_handler $argv
 end
-

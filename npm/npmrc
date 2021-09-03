@@ -1,5 +1,4 @@
 engine-strict = true
-prefix = ${HOME}/.npm/global-packages
 
 # pnpm
 cache-dir = ${HOME}/.cache/pnpm/cache
