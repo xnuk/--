@@ -59,7 +59,6 @@ end
 
 alias tmux 'tmux -2'
 alias git hub
-alias vim nvim
 alias ls "exa --git --time-style=long-iso"
 alias rm trash-put
 alias rm! rm
