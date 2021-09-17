@@ -438,6 +438,10 @@ hook global BufCreate .*[.](less|rasi) %{
 	set-option buffer filetype scss
 }
 
+hook global BufCreate .*[.](mjs|cjs) %{
+	set-option buffer filetype javascript
+}
+
 hook global BufCreate .*[.](conf|gitignore) %{
 	add-highlighter buffer/ regex '^#[^\n]*$' 0:comment
 }
