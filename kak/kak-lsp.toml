@@ -52,7 +52,7 @@ token = 'variable'
 face = 'variable'
 
 [language.tsx]
-filetypes = ['typescript']
+filetypes = ['typescript', 'javascript']
 roots = ['.git', 'tsconfig.json']
 command = 'typescript-language-server'
 args = [ '--stdio' ]

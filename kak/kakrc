@@ -325,20 +325,13 @@ hook global BufCreate .* %{
 	try modeline-parse
 }
 
-hook global WinSetOption filetype=typescript %{
+hook global WinSetOption filetype=(typescript|javascript) %{
 	set buffer autoreload yes
 	set buffer formatcmd %sh{
-		# if [ -e "$tool prettier-eslint" ]; then
 		echo cat '<<' EOF '|' dash '2>/dev/null >/dev/null &'
 		echo yarny prettier --write "$(realpath "$kak_buffile")"
 		echo yarny eslint --fix "$(realpath "$kak_buffile")"
 		echo EOF
-		# elif [ -e "$tool eslint" ]; then
-			# echo "$tool eslint --fix $kak_buffile >/dev/null 2>&1 &"
-		# elif [ -e "$tool prettier" ]; then
-			# echo "$tool prettier --write $kak_buffile >/dev/null 2>&1 &"
-		# fi
-
 		echo cat
 	}
 
@@ -348,7 +341,7 @@ hook global WinSetOption filetype=typescript %{
 		printf "%s yarny %s %s %s" "$ignore_last" eslint "$format" "$kak_buffile"
 	}
 
-	hook buffer BufWritePost .*\.tsx? format
+	hook buffer BufWritePost .*\.(tsx?|jsx?) format
 	map global insert <a-ret> '<a-;>x<a-;>| emmet<ret>'
 }
 
@@ -361,26 +354,14 @@ hook global WinSetOption filetype=(css|scss|sass|html|less|json) %{
 	set buffer autoreload yes
 	set buffer extra_word_chars '_' '-'
 	set buffer formatcmd %sh{
-		echo yarny prettier --write "$(realpath "$kak_buffile")" '>/dev/null 2>/dev/null &' cat
+		echo cat '<<' EOF '|' dash '2>/dev/null >/dev/null & cat'
+		echo yarny prettier --write "$(realpath "$kak_buffile")"
+		echo yarny eslint --fix "$(realpath "$kak_buffile")"
+		echo EOF
 	}
 	hook buffer BufWritePost .* format
 	map global insert <a-ret> '<a-;>x<a-;>| emmet<ret>'
 
-}
-
-hook global WinSetOption filetype=javascript %{
-	set buffer autoreload yes
-	set buffer formatcmd %sh{echo "$(npm bin)/prettier" "$kak_buffile"}
-	eval %sh{
-		basepath=$(npm bin)
-		format="--format=$HOME/.npm/global-packages/lib/node_modules/eslint-formatter-kakoune"
-		prefix='set buffer lintcmd'
-		if [ -e "$basepath/eslint" ]; then
-			printf "%s %s %s\nlint-enable\nlint" "$prefix" "$basepath/eslint" "$format"
-		fi
-	}
-
-	hook buffer BufWritePost .*\.jsx? format
 }
 
 hook global WinSetOption filetype=rust %{
