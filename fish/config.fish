@@ -38,6 +38,7 @@ end
 set -g fish_user_paths \
 	$XDG_CONFIG_HOME/bin \
 	$HOME/.local/bin \
+	$HOME/corepack/bin \
 	$HOME/.local/share/gem/ruby/3.0.0/bin \
 	$HOME/.fzf/bin \
 	$HOME/.cargo/bin \
