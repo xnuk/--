@@ -48,6 +48,7 @@ rebase = true
 
 [commit]
 gpgsign = true
+verbose = true
 
 [include]
 path = ~/.gitconfig
