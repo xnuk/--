@@ -50,6 +50,12 @@ rebase = true
 gpgsign = true
 verbose = true
 
+[rerere]
+enabled = true
+
+[merge]
+conflictStyle = diff3
+
 [include]
 path = ~/.gitconfig
 
