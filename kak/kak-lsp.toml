@@ -64,6 +64,9 @@ filetypes = ['rust']
 roots = ['.git', 'Cargo.toml']
 command = 'rls'
 
+[language.rust.settings.rust]
+clippy_preference = 'on'
+
 [language.haskell]
 filetypes = ['haskell']
 roots = ['.git', 'Setup.hs', 'package.yaml']

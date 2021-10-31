@@ -231,7 +231,9 @@ map global goto i l -docstring 'line start'
 map global goto u tvc -docstring 'half page up'
 map global goto U k -docstring 'buffer top'
 map global goto E j -docstring 'buffer bottom'
+
 map global goto <ret> ': lsp-code-actions<ret>' -docstring 'lsp-code-actions'
+map global normal <F2> ': lsp-rename-prompt<ret>' -docstring 'lsp-rename-prompt'
 
 # Subline line
 map global normal <c-l> <a-s>
@@ -293,6 +295,7 @@ set global incsearch true
 eval %sh{kak-lsp --kakoune -s "$kak_session" --config "$kak_config/kak-lsp.toml"}
 
 set global lsp_hover_anchor true
+set global lsp_hover_max_lines 10
 set global lsp_auto_highlight_references true
 
 lsp-auto-hover-enable
@@ -383,7 +386,10 @@ hook global WinSetOption filetype=(typescript|rust) %{
 	}
 }
 
-hook global WinSetOption filetype=(asciidoc|md) autowrap-enable
+hook global WinSetOption filetype=(asciidoc|markdown) %{
+	autowrap-enable
+	add-highlighter buffer/ wrap
+}
 
 hook global WinSetOption filetype=git-rebase %{
 	map buffer normal <ret> '<a-x>s^[a-z]+ ([a-f0-9]+) <ret>: git show <c-r>1<ret>'
