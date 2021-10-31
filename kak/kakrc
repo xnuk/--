@@ -365,7 +365,7 @@ hook global WinSetOption filetype=(css|scss|sass|html|less|json) %{
 }
 
 hook global WinSetOption filetype=rust %{
-	hook buffer BufWritePre .*\.rs lsp-formatting
+	hook buffer BufWritePost .*\.rs lsp-formatting
 }
 
 hook global WinSetOption filetype=(kak|sh) %{
