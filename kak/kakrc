@@ -216,7 +216,7 @@ map global normal <s-tab> \<
 
 map global normal <space> ': combined-space<ret>' -docstring 'reduce selections to their cursor'
 map global normal <backspace> u
-map global goto <backspace> UU -docstring 'redo'
+map global goto <backspace> <esc>U -docstring 'redo'
 map global normal '#' ': comment-prefer-line<ret>'
 map global normal '^' ': comment-prefer-block<ret>'
 map global insert '<a-f>' '<a-;>: comment-line<ret>'
