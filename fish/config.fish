@@ -47,6 +47,7 @@ set -g fish_user_paths \
 	/usr/local/opt/ruby/bin \
 	/usr/local/bin \
 	/usr/bin \
+	/usr/bin/vendor_perl \
 	/bin \
 	/usr/sbin \
 	/sbin
