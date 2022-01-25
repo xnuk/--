@@ -43,8 +43,8 @@ Thumbs.db
 .*.swp
 
 # node.js
-/node_modules/
-/.yarn/*
+node_modules/
+.yarn/*
 !.yarn/releases
 !.yarn/plugins
 !.yarn/sdks

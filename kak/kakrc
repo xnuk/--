@@ -57,6 +57,12 @@ plug github:TeddyDD/kakoune-edit-or-dir %{
 
 plug github:occivink/kakoune-filetree
 
+plug github:andreyorst/fzf.kak %{
+	require-module fzf-file
+	set global fzf_highlight_command bat
+	set global fzf_file_command fd
+}
+
 # plug https://gitlab.com/Screwtapello/kakoune-state-save %{
 # 	hook global KakBegin .* %{
 # 		state-save-reg-load colon
@@ -136,6 +142,10 @@ define-command comment-prefer-line %{
 define-command to-spaces 'execute-keys @'
 define-command to-tabs   'execute-keys <a-@>'
 
+define-command lsp-try-add-signature -docstring 'try add signature' %{
+	try %{ lsp-code-action 'add signature' } catch lsp-code-actions
+}
+
 # How dare you guise use spaces
 set-option global indentwidth 0
 set-option global aligntab false
@@ -202,10 +212,15 @@ map global normal T G
 
 map global normal h i
 map global normal H I
-map global normal L <a-i>
-map global normal l <a-a>
 map global normal \; :
 map global normal : '<a-;>'
+
+# # Not frequently using
+# map global normal L <a-i>
+# map global normal l <a-a>
+
+map global normal l ': enter-user-mode lsp<ret>'
+map global normal L ': lsp-code-actions<ret>'
 
 # jump
 map global normal j <c-o>
@@ -232,7 +247,7 @@ map global goto u tvc -docstring 'half page up'
 map global goto U k -docstring 'buffer top'
 map global goto E j -docstring 'buffer bottom'
 
-map global goto <ret> ': lsp-code-actions<ret>' -docstring 'lsp-code-actions'
+map global goto <ret> '<esc>: lsp-code-actions<ret>' -docstring 'lsp-code-actions'
 map global normal <F2> ': lsp-rename-prompt<ret>' -docstring 'lsp-rename-prompt'
 
 # Subline line
@@ -368,13 +383,16 @@ hook global WinSetOption filetype=(css|scss|sass|html|less|json) %{
 }
 
 hook global WinSetOption filetype=rust %{
-	hook buffer BufWritePost .*\.rs lsp-formatting
+	hook buffer BufWritePost .* lsp-formatting-sync
+	map buffer normal <ret> ': lsp-signature-help<ret>'
+}
+
+hook global WinSetOption filetype=haskell %{
+	hook buffer BufWritePost .* lsp-formatting-sync
 }
 
 hook global WinSetOption filetype=(kak|sh) %{
-	hook buffer ModeChange .*:.insert:normal %{
-		lint
-	}
+	hook buffer ModeChange .*:insert:normal lint
 }
 
 hook global WinSetOption filetype=(typescript|rust) %{
@@ -420,6 +438,10 @@ hook global ModeChange .*:insert:normal %{
 	remove-highlighter buffer/line_%val{cursor_line}_default,rgb:404040
 }
 
+hook global NormalKey '[ㄱ-힣]' %{
+	nop %sh{ kime-to english }
+}
+
 # why
 hook global BufCreate .*[.](less|rasi) %{
 	set-option buffer filetype scss
@@ -449,6 +471,16 @@ define-command -params 1 update-modeline %{
 	set %arg{1} modelinefmt '%val{bufname} L%val{cursor_line}#%val{cursor_char_column} %opt{modeline_git_branch}{{context_info}} {{mode_info}} - %val{session}'
 }
 
+define-command -hidden git-show-diff-shut-up %{
+	eval %sh{
+		if [ -e "$kak_buffile" ]; then
+			printf "try 'git show-diff'"
+		else
+			printf nop
+		fi
+	}
+}
+
 hook global WinCreate .* %{
 	hook window NormalIdle .* %{
 		eval %sh{
@@ -463,15 +495,15 @@ hook global WinCreate .* %{
 		update-modeline window
 	}
 
-	try 'git show-diff'
+	git-show-diff-shut-up
 }
 
 hook global BufWritePost .* %{
-	try 'git show-diff'
+	git-show-diff-shut-up
 }
 
 hook global NormalIdle .* %{
-	try 'git show-diff'
+	git-show-diff-shut-up
 }
 
 hook global BufCreate \*scratch\* %{
@@ -479,9 +511,12 @@ hook global BufCreate \*scratch\* %{
 	map buffer normal <ret> '<a-x>_: e %val{selection}<ret>'
 }
 
+# diff highlight
+add-highlighter global/ regex '^[>|<=]{7,}( [^\r\n]*)?' 0:white,red 1:bright-black,black+i
+
+
 # Some notes
 # _ : trim selection
 # & : align selection
 # <c-i> : jumps backward
 # <c-o> : jumps forward
-

@@ -71,6 +71,10 @@ alias fontforge 'env GDK_BACKEND=x11 fontforge'
 
 alias 교자 exit
 
+if not type -q firefox
+	alias firefox firefox-developer-edition
+end
+
 abbr --add -g py2 "python2"
 abbr --add -g py3 "python3"
 abbr --add -g py "python3"

@@ -26,6 +26,9 @@ insteadOf = "xnuk:"
 [url "git@git.sr.ht"]
 insteadOf = "sr"
 
+[url "git@git.sr.ht:~xnuk/"]
+insteadOf = "srxnuk"
+
 [push]
 default = current
 

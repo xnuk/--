@@ -53,7 +53,7 @@ face = 'variable'
 
 [language.tsx]
 filetypes = ['typescript', 'javascript']
-roots = ['.git', 'tsconfig.json']
+roots = ['tsconfig.json', '.git']
 command = 'typescript-language-server'
 args = [ '--stdio' ]
 # command = 'deno'
@@ -61,17 +61,22 @@ args = [ '--stdio' ]
 
 [language.rust]
 filetypes = ['rust']
-roots = ['.git', 'Cargo.toml']
+roots = ['Cargo.toml', '.git']
 command = 'rls'
+settings_section = 'rust'
 
 [language.rust.settings.rust]
-clippy_preference = 'on'
+settings.rust.clippy_preference = 'on'
 
 [language.haskell]
 filetypes = ['haskell']
-roots = ['.git', 'Setup.hs', 'package.yaml']
+roots = ['Setup.hs', 'stack.yaml', '*.cabal', '.git']
 command = 'haskell-language-server-wrapper'
 args = [ '--lsp' ]
+settings_section = 'haskell'
+
+[language.haskell.settings.haskell]
+haskell.formattingProvider = 'fourmolu'
 
 [language.json]
 filetypes = ['json']
@@ -90,3 +95,8 @@ filetypes = ['scss']
 roots = ['.git']
 command = 'stylelint-lsp'
 args = ['--stdio']
+
+[language.crystal]
+filetypes = ['crystal']
+roots = ['.git', 'shard.yml', 'shard.yaml']
+command = 'crystalline'
