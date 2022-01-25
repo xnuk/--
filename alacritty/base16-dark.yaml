@@ -45,4 +45,5 @@ colors:
       foreground: '#ffffff'
 
 draw_bold_text_with_bright_colors: false
-background_opacity: 0.9
+window:
+  opacity: 0.9
