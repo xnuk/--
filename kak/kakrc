@@ -48,7 +48,7 @@ plug github:occivink/kakoune-sudo-write
 # shortcut plugins that doesn't care about remapping
 plug github:Delapouite/kakoune-auto-percent
 
-plug https://gitlab.com/Screwtapello/kakoune-shellcheck
+plug! https://gitlab.com/Screwtapello/kakoune-shellcheck
 
 plug github:TeddyDD/kakoune-edit-or-dir %{
 	unalias global e edit
