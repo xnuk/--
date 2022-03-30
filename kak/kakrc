@@ -258,7 +258,9 @@ map global insert <s-tab> <a-\;><lt>
 
 # system paste
 declare-option -hidden str paste_cmd %sh{
-	if command -v pbpaste > /dev/null; then
+	if command -v powershell.exe > /dev/null; then
+		echo powershell.exe '-Command' Get-Clipboard
+	elif command -v pbpaste > /dev/null; then
 		echo pbpaste
 	elif command -v xsel > /dev/null; then
 		echo xsel --clipboard
@@ -273,7 +275,9 @@ declare-option -hidden str paste_cmd %sh{
 
 # system copy
 declare-option -hidden str copy_cmd %sh{
-	if command -v pbcopy > /dev/null; then
+	if command -v clip.exe > /dev/null; then
+		echo clip.exe '>' /dev/null '2>&1'
+	elif command -v pbcopy > /dev/null; then
 		echo pbcopy
 	elif command -v wl-copy > /dev/null; then
 		echo wl-copy '>' /dev/null '2>&1'
