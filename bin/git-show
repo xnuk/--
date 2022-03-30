@@ -4,6 +4,13 @@
 git rev-parse --short HEAD > /dev/null || exit 1
 
 gitshow='git show --format=fuller --ignore-space-change'
+preview_position=$(
+	if [ "$(tput cols)" -lt 100 ]; then
+		printf 'up'
+	else
+		printf 'right'
+	fi
+)
 
 # Usage: git-show ...[other git log options or branch name]
 # Git log with preview, powered by fzf. Select to `git show` it.
@@ -13,7 +20,7 @@ hash=$(
 	--pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' \
 	--abbrev-commit "$@" |
 	fzf --ansi --multi --no-sort --reverse \
-	--preview="$gitshow --color=always {+1}" |
+	--preview="$gitshow --color=always {+1}" --preview-window="$preview_position" |
 	cut -d ' ' -f1
 )
 
@@ -27,4 +34,3 @@ if [ -n "$hash" ]; then
 else
 	exit 1
 fi
-
