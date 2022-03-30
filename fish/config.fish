@@ -1,6 +1,6 @@
 set -gx EDITOR kak
 set -gx COLORTERM truecolor
-set -gx LESS -FR
+set -gx LESS '-FR --mouse'
 set -gx BAT_PAGER "less $LESS"
 set -gx CLICOLOR 1
 
@@ -62,8 +62,8 @@ end
 alias tmux 'tmux -2'
 alias git hub
 alias ls "exa --git --time-style=long-iso"
-alias rm trash-put
-alias rm! rm
+alias rm "trash-put --trash-dir=$HOME/.local/share/Trash"
+alias rm! /bin/rm
 alias cp 'cp -i --reflink=auto'
 alias trim "awk '{\$1=\$1};1'"
 alias ip 'ip --color=auto'
