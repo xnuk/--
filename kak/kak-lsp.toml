@@ -51,13 +51,20 @@ modifiers = ['constant']
 token = 'variable'
 face = 'variable'
 
-[language.tsx]
-filetypes = ['typescript', 'javascript']
-roots = ['tsconfig.json', '.git']
-command = 'typescript-language-server'
-args = [ '--stdio' ]
+# [language.typescript]
+# filetypes = ['typescript', 'javascript']
+# roots = ['deno.json']
 # command = 'deno'
 # args = ['lsp']
+# [language.typescript.settings.deno]
+# enable = true
+# lint = true
+
+[language.tsx]
+filetypes = ['typescript', 'javascript']
+roots = ['pnpm-workspace.yaml', '.git', 'package.json']
+command = 'typescript-language-server'
+args = [ '--stdio' ]
 
 [language.rust]
 filetypes = ['rust']
