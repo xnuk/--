@@ -114,6 +114,7 @@ abbr --add -g gst "git stash"
 abbr --add -g grm "git switch (git-default-branch); and git pull --rebase; and git switch -; and git rebase - -i"
 
 abbr --add -g preonic "dfu-util -d 0483:DF11 -a 0 -s 0x08000000:leave -w -D"
+abbr --add -g pnpx "pnpm dlx"
 
 # thanks I hate it
 function fish_command_not_found
