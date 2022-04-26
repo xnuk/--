@@ -390,6 +390,10 @@ hook global WinSetOption filetype=(css|scss|sass|html|less|json) %{
 hook global WinSetOption filetype=rust %{
 	hook buffer BufWritePost .* lsp-formatting-sync
 	map buffer normal <ret> ': lsp-signature-help<ret>'
+	hook window -group rust-inlay-hints BufWritePost .* rust-analyzer-inlay-hints
+	hook -once -always window WinSetOption filetype=.* %{
+		remove-hooks window rust-inlay-hints
+	}
 }
 
 hook global WinSetOption filetype=haskell %{
