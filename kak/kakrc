@@ -7,6 +7,8 @@ require-module plug
 
 plug xnuk:plug.kak
 
+plug! xnuk:graphviz.kak
+
 plug xnuk:surround.kak %{
 	map global normal \' ': enter-user-mode surround<ret>'
 	map global normal q ': enter-user-mode surround<ret>'
