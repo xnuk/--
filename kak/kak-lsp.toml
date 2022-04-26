@@ -51,29 +51,42 @@ modifiers = ['constant']
 token = 'variable'
 face = 'variable'
 
-# [language.typescript]
-# filetypes = ['typescript', 'javascript']
-# roots = ['deno.json']
-# command = 'deno'
-# args = ['lsp']
-# [language.typescript.settings.deno]
-# enable = true
-# lint = true
-
 [language.tsx]
 filetypes = ['typescript', 'javascript']
-roots = ['pnpm-workspace.yaml', '.git', 'package.json']
-command = 'typescript-language-server'
-args = [ '--stdio' ]
+roots = ['deno.json', '.git']
+command = 'sh'
+args = ['-c', '''
+toplevel=$(git rev-parse --show-toplevel 2>/dev/null || true)
+
+if [ -f "$toplevel/deno.json" ]; then
+	exec deno lsp
+else
+	exec typescript-language-server --stdio
+fi
+''']
+[language.tsx.settings.deno]
+enable = true
+lint = true
 
 [language.rust]
 filetypes = ['rust']
 roots = ['Cargo.toml', '.git']
 command = 'rls'
 settings_section = 'rust'
-
 [language.rust.settings.rust]
 settings.rust.clippy_preference = 'on'
+# command = 'sh'
+# args = ['-c', '''
+# if path=$(rustup which rust-analyzer 2>/dev/null); then
+# 	exec "$path"
+# else
+# 	rust-analyzer
+# fi
+# ''']
+# settings_section = 'rust-analyzer'
+# [language.rust.settings.rust-analyzer]
+# hoverActions.enable = false
+
 
 [language.haskell]
 filetypes = ['haskell']
