@@ -8,7 +8,7 @@ configuration {
 	sidebar-mode: false;
 
 	separator-style: "none";
-	theme: "./xnuk.rasi";
 
 	combi-hide-mode-prefix: true;
 }
+@theme "./xnuk.rasi"

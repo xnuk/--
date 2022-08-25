@@ -71,10 +71,12 @@ lint = true
 [language.rust]
 filetypes = ['rust']
 roots = ['Cargo.toml', '.git']
+
 command = 'rls'
 settings_section = 'rust'
 [language.rust.settings.rust]
 settings.rust.clippy_preference = 'on'
+
 # command = 'sh'
 # args = ['-c', '''
 # if path=$(rustup which rust-analyzer 2>/dev/null); then
