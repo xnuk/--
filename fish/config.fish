@@ -24,6 +24,7 @@ set -gx FZF_CTRL_T_OPTS '--ansi --preview="bat --color=always --style=numbers,ch
 set -gx FZF_CTRL_T_COMMAND 'fd --type f'
 
 set -gx CHROME_BIN chromium
+set -gx BROWSER firefox-developer-edition
 
 if status is-login
 	and test -z "$DISPLAY" -a "$XDG_VTNR" = 1
