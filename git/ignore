@@ -68,3 +68,13 @@ dist/
 # sensitive
 .env
 .cargo-ok
+
+# python
+__pycache__/
+
+# latex
+*.aux
+*.fls
+*.xdv
+*.fdb_latexmk
+_minted-*/
