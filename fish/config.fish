@@ -46,6 +46,7 @@ set -g fish_user_paths \
 	$HOME/.npm/nodes/bin \
 	$NPM_CONFIG_PREFIX/bin \
 	/usr/local/opt/ruby/bin \
+	/usr/lib/jvm/default/bin \
 	/usr/local/bin \
 	/usr/bin \
 	/usr/bin/vendor_perl \
