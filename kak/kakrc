@@ -65,6 +65,11 @@ plug github:andreyorst/fzf.kak %{
 	set global fzf_file_command fd
 }
 
+plug https://gitlab.com/Screwtapello/kakoune-inc-dec %{
+	map global normal <c-a> ': inc-dec-modify-numbers + 1<ret>'
+	map global normal <c-x> ': inc-dec-modify-numbers - 1<ret>'
+}
+
 # plug https://gitlab.com/Screwtapello/kakoune-state-save %{
 # 	hook global KakBegin .* %{
 # 		state-save-reg-load colon
@@ -388,7 +393,6 @@ hook global WinSetOption filetype=(css|scss|sass|html|less|json) %{
 }
 
 hook global WinSetOption filetype=rust %{
-	hook buffer BufWritePost .* lsp-formatting-sync
 	map buffer normal <ret> ': lsp-signature-help<ret>'
 	hook window -group rust-inlay-hints BufWritePost .* rust-analyzer-inlay-hints
 	hook -once -always window WinSetOption filetype=.* %{
@@ -396,8 +400,22 @@ hook global WinSetOption filetype=rust %{
 	}
 }
 
-hook global WinSetOption filetype=haskell %{
+hook global WinSetOption filetype=(haskell|rust) %{
 	hook buffer BufWritePost .* lsp-formatting-sync
+}
+
+hook global WinSetOption filetype=(java) %{
+	hook buffer BufWritePre .* lsp-formatting-sync
+}
+
+hook global WinSetOption filetype=python %{
+	set buffer formatcmd 'black --preview - | unexpand --tabs=4'
+	set buffer lintcmd %sh{
+		format='%(path)s:%(row)d:%(col)d: error: %(text)s'
+		ignore_last="ruby -e 'system *ARGV[0...-1]'"
+		printf "%s pycodestyle --format='%s' %s" "$ignore_last" "$format" "$kak_buffile"
+	}
+	hook buffer BufWritePost .* format
 }
 
 hook global WinSetOption filetype=(kak|sh) %{

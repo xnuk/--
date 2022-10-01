@@ -115,3 +115,25 @@ args = ['--stdio']
 filetypes = ['crystal']
 roots = ['.git', 'shard.yml', 'shard.yaml']
 command = 'crystalline'
+
+[language.python]
+filetypes = ['python']
+roots = ['requirements.txt', 'setup.py', 'setup.cfg', 'pyproject.toml', '.git']
+
+# # try this on mypy v0.981
+# command = 'pylsp'
+# settings_section = '_'
+# [language.python.settings._.pylsp.plugins]
+# pycodestyle.enabled = true
+# yapf.enabled = false
+# mypy.enabled = true
+# mypy.live_mode = true
+# mypy.strict = true
+
+command = 'pyright-langserver'
+args = ['--stdio']
+
+[language.java]
+filetypes = ['java']
+roots = ['.git', 'pom.xml']
+command = 'java-language-server'
