@@ -44,9 +44,11 @@ set -g fish_user_paths \
 	$HOME/.fzf/bin \
 	$HOME/.cargo/bin \
 	$HOME/.npm/nodes/bin \
+	$HOME/.ghcup/bin \
 	$NPM_CONFIG_PREFIX/bin \
 	/usr/local/opt/ruby/bin \
 	/usr/lib/jvm/default/bin \
+	/usr/lib/emscripten \
 	/usr/local/bin \
 	/usr/bin \
 	/usr/bin/vendor_perl \
