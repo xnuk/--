@@ -40,9 +40,9 @@ colors:
     focused_match:
       background: '#ffff00'
       foreground: '#ff00ff'
-    bar:
-      background: '#000000'
-      foreground: '#ffffff'
+  footer_bar:
+    background: '#000000'
+    foreground: '#ffffff'
 
 draw_bold_text_with_bright_colors: false
 window:
