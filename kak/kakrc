@@ -407,7 +407,7 @@ hook global WinSetOption filetype=(java) %{
 }
 
 hook global WinSetOption filetype=python %{
-	set buffer formatcmd 'black --preview - | unexpand --tabs=4'
+	set buffer formatcmd 'black --preview - | unexpand --tabs=4 --first-only'
 	set buffer lintcmd %sh{
 		format='%(path)s:%(row)d:%(col)d: error: %(text)s'
 		ignore_last="ruby -e 'system *ARGV[0...-1]'"

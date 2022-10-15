@@ -71,17 +71,19 @@ lint = true
 [language.rust]
 filetypes = ['rust']
 roots = ['Cargo.toml', '.git']
-command = 'sh'
-args = ['-c', '''
-if path=$(rustup which rust-analyzer 2>/dev/null); then
-	exec "$path"
-else
-	rust-analyzer
-fi
-''']
+# command = 'sh'
+# args = ['-c', '''
+# if path=$(rustup which rust-analyzer 2>/dev/null); then
+# 	exec "$path"
+# else
+# 	rust-analyzer
+# fi
+# ''']
+command = 'rust-analyzer'
 settings_section = 'rust-analyzer'
 [language.rust.settings.rust-analyzer]
 hoverActions.enable = false
+checkOnSave.command = 'clippy'
 
 [language.haskell]
 filetypes = ['haskell']
