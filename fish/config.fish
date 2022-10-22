@@ -1,6 +1,7 @@
 set -gx EDITOR kak
 set -gx COLORTERM truecolor
 set -gx LESS '-FR --mouse'
+set -gx LESSHISTFILE '-'
 set -gx BAT_PAGER "less $LESS"
 set -gx CLICOLOR 1
 
