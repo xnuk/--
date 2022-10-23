@@ -1,0 +1,7 @@
+# vim: ft=ini
+
+[options]
+background = checks
+
+[binds]
+<Escape> = quit

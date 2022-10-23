@@ -41,7 +41,7 @@
 # npm
 !/npm/*
 
-!/feh/buttons
+!/imv/config
 !/gtk-3.0/settings.ini
 !/tmux/tmux.conf
 !/chips/plugin.yaml
