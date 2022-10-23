@@ -476,7 +476,7 @@ hook global BufCreate .*[.](mjs|cjs) %{
 	set-option buffer filetype javascript
 }
 
-hook global BufCreate .*[.](conf|gitignore) %{
+hook global BufCreate .*[.](conf|gitignore|local) %{
 	add-highlighter buffer/ regex '^#[^\n]*$' 0:comment
 }
 
