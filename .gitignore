@@ -51,3 +51,5 @@
 !/alacritty/*
 !/bin/*
 !/rofi/*
+
+!/paru/paru.conf
