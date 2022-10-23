@@ -1,5 +1,5 @@
 * {
-	font: "Noto Sans CJK KR 9";
+	font: "Noto Sans CJK KR 12";
 	background-color: transparent;
 	border-color: transparent;
 	text-color: #ddd;
@@ -7,24 +7,35 @@
 
 
 window {
-	background-color: rgba(46, 52, 64, 0.85);
+	background-color: rgba(0, 0, 0, 0.85);
 	border-color: transparent;
 	border: 0;
 	text-color: White;
-	padding: 24px;
+	padding: 10% 20% 0;
 	anchor: north;
-	location: center;
-	y-offset: -200px;
+	location: north;
+	height: 100%;
+	width: 100%;
+	vertical-align: 0.5;
+	children: [mainbox];
+}
+
+error-message {
+	padding: 25% 0;
 }
 
 mainbox {
 	border: 0;
 	padding: 0;
+	width: 50%;
+
+	children: [mode-switcher, inputbar, message, listview];
 }
 
 inputbar {
 	children: [textbox-caret, entry, case-indicator, num-filtered-rows, textbox-slash, num-rows, textbox-slash, prompt];
 	padding: 0 0 20px;
+	vertical-align: 0.5;
 }
 
 textbox-caret {
@@ -33,7 +44,6 @@ textbox-caret {
 	text-color: rgba(200, 200, 200, 0.5);
 	padding: 5px 5px 0 0;
 	font: "Noto Color Emoji 12";
-	vertical-align: 1;
 }
 
 textbox-slash {
@@ -49,6 +59,8 @@ num-filtered-rows, num-rows, prompt {
 
 entry {
 	font: "Noto Sans CJK KR 14";
+	placeholder: "전립선...";
+	placeholder-color: #999;
 }
 
 // #case-indicator {
@@ -58,17 +70,29 @@ entry {
 
 element {
 	padding: 2px 4px;
+	children: [element-icon, element-text];
+	orientation: vertical;
+	horizontal-align: 0.5;
 }
 
 listview {
 	spacing: 0;
-	scrollbar: false;
-	dynamic: true;
-	fixed-height: false;
+	scrollbar: true;
+	// scrollbar-width: 10px;
+	dynamic: false;
+	fixed-height: true;
+	// width: 72px;
+	columns: 8;
+	flow: horizontal;
+}
+
+element-icon {
+	size: 96px;
 }
 
 element-text {
 	highlight: bold #fff;
+	horizontal-align: 0.5;
 }
 
 element.selected {
@@ -79,3 +103,8 @@ element-icon {
 	enabled: true;
 }
 
+scrollbar {
+	background-color: transparent;
+	handle-color: #ccc;
+	handle-width: 10px;
+}

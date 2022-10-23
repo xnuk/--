@@ -1,6 +1,6 @@
 configuration {
-	modi: "combi";
-	combi-modi: "drun,run";
+	modes: "combi,filebrowser";
+	combi-modes: "drun,filebrowser";
 
 	show-icons: true;
 	terminal: "alacritty";
