@@ -167,6 +167,7 @@ colorscheme tomorrow-night
 
 # I love Akamig
 unset-face global Default
+unset-face global BufferPadding
 
 add-highlighter global/ number-lines -hlcursor -separator " " -min-digits 3
 
