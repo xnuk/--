@@ -16,6 +16,9 @@ set -gx NPM_CONFIG_PREFIX $HOME/.npm/global-packages
 set -gx N_PREFIX $HOME/.npm/nodes
 set -gx N_PRESERVE_NPM 1
 
+# Thanks poetry I hate it https://github.com/python-poetry/poetry/issues/1917
+set -gx PYTHON_KEYRING_BACKEND keyring.backends.fail.Keyring
+
 set -gx DOTNET_CLI_TELEMETRY_OPTOUT 1
 set -gx NEXT_TELEMETRY_DISABLED 1
 set -gx GATSBY_TELEMETRY_DISABLED 1
