@@ -138,3 +138,12 @@ abbr --add -g pnpx "pnpm dlx"
 function fish_command_not_found
 	__fish_default_command_not_found_handler $argv
 end
+
+# theme
+set -Ux fish_color_command 005fd7
+set -Ux fish_color_comment red
+set -Ux fish_color_end 009900
+set -Ux fish_color_error ff0000
+set -Ux fish_color_param 00afff
+set -Ux fish_color_quote 999900
+set -Ux fish_color_redirection 00afff
