@@ -10,6 +10,8 @@ set -gx ADBLOCK true
 set -gx XDG_CONFIG_HOME $HOME/.config
 set -gx XDG_DATA_HOME $HOME/.local/share
 
+set -gx GNUPGHOME $XDG_CONFIG_HOME/gnupg
+
 set -gx NODE_OPTIONS '--experimental-repl-await'
 set -gx NPM_CONFIG_USERCONFIG $HOME/.config/npm/npmrc
 set -gx NPM_CONFIG_PREFIX $HOME/.npm/global-packages
