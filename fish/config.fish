@@ -75,9 +75,18 @@ alias ls "exa --git --time-style=long-iso"
 alias rm "trash-put --trash-dir=$HOME/.local/share/Trash"
 alias rm! /bin/rm
 alias cp 'cp -i --reflink=auto'
+alias mv 'mv -i'
 alias trim "awk '{\$1=\$1};1'"
 alias ip 'ip --color=auto'
 alias fontforge 'env GDK_BACKEND=x11 fontforge'
+
+# Inlining fish-sensible
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../..'
+alias ......='cd ../../../..'
+alias .......='cd ../../../../..'
+alias ........='cd ../../../../../..'
 
 alias 교자 exit
 
@@ -103,8 +112,8 @@ abbr --add -g k "kak"
 abbr --add -g h "eval (history -n 1)"
 abbr --add -g cat "bat"
 abbr --add -g cat! "cat"
-abbr --add -g ll "ls -l"
-abbr --add -g la "ls -la"
+abbr --add -g ll "ls -lh"
+abbr --add -g la "ls -lah"
 
 abbr --add -g r "git add --all -p"
 
