@@ -9,10 +9,10 @@ plug xnuk:plug.kak
 
 plug! xnuk:graphviz.kak
 
-plug xnuk:surround.kak %{
-	map global normal \' ': enter-user-mode surround<ret>'
-	map global normal q ': enter-user-mode surround<ret>'
-	map global normal ( ': enter-user-mode surround<ret>('
+plug github:alexherbo2/surround.kak %{
+	map global normal \' ': enter-surround-mode<ret>'
+	map global normal q ': enter-surround-mode<ret>'
+	map global normal ( ': enter-surround-mode<ret>('
 }
 
 plug xnuk:search-highlighter.kak %{
@@ -146,6 +146,17 @@ define-command comment-prefer-line %{
 	}
 }
 
+define-command extend-line %{execute-keys %sh{
+	should_select_line=$(
+		printf '%s' "$kak_selections_length" | sed -nE '/( |^)1($| )/p'
+	)
+	if [ -n "$should_select_line" ]; then
+		printf 'x'
+	else
+		printf 'xJx'
+	fi
+}}
+
 define-command to-spaces 'execute-keys @'
 define-command to-tabs   'execute-keys <a-@>'
 
@@ -192,10 +203,9 @@ map global normal <a-U> {p
 map global normal U K
 map global normal <a-U> {p
 map global normal k <a-J>
-map global normal v x[p]p
-map global normal V X{p}p
-map global normal x X
-map global normal X <a-x>
+map global normal v ': extend-line<ret>[p]p'
+map global normal V ': extend-line<ret>{p}p'
+map global normal x ': extend-line<ret>'
 map global normal r ';r'
 map global normal a ': no-fail-selection-trim<ret>a'
 
