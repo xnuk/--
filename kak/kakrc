@@ -41,7 +41,7 @@ plug github:occivink/kakoune-expand %{
 }
 
 plug github:Delapouite/kakoune-goto-file %{
-	map global goto F f
+	map global goto <a-f> f
 	map global goto f '<esc>: try %{ execute-keys gF } catch goto-file<ret>' -docstring 'file'
 }
 
@@ -252,8 +252,8 @@ map global goto n h -docstring 'line end'
 map global goto e <esc><c-d>gc -docstring 'half page down'
 map global goto i l -docstring 'line start'
 map global goto u tvc -docstring 'half page up'
-map global goto U k -docstring 'buffer top'
-map global goto E j -docstring 'buffer bottom'
+map global goto g k -docstring 'buffer top'
+map global goto v j -docstring 'buffer bottom'
 
 map global goto <ret> '<esc>: lsp-code-actions<ret>' -docstring 'lsp-code-actions'
 map global normal <F2> ': lsp-rename-prompt<ret>' -docstring 'lsp-rename-prompt'
@@ -295,7 +295,6 @@ declare-option -hidden str copy_cmd %sh{
 map global user p %sh{echo "<a-!> $kak_opt_paste_cmd<ret>"} -docstring 'paste after from system clipboard'
 map global user P %sh{echo "! $kak_opt_paste_cmd<ret>"}     -docstring 'paste before from system clipboard'
 map global user y %sh{echo "<a-|> $kak_opt_copy_cmd<ret>"}  -docstring 'copy to system clipboard'
-map global user <space> ': enter-user-mode lsp<ret>'        -docstring 'enter lsp mode'
 
 # tmux int.
 declare-user-mode tmux
@@ -534,15 +533,8 @@ hook global NormalIdle .* %{
 
 hook global BufCreate \*scratch\* %{
 	execute-keys '%d! ls<ret>'
-	map buffer normal <ret> '<a-x>_: e %val{selection}<ret>'
+	map buffer normal <ret> 'x_: e %val{selection}<ret>'
 }
 
 # diff highlight
 add-highlighter global/ regex '^[>|<=]{7,}( [^\r\n]*)?' 0:white,red 1:bright-black,black+i
-
-
-# Some notes
-# _ : trim selection
-# & : align selection
-# <c-i> : jumps backward
-# <c-o> : jumps forward
