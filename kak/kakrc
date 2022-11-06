@@ -111,12 +111,11 @@ set-option -add global ui_options terminal_assistant=cat
 
 define-command combined-space -docstring 'try ; first, then <space>.' %{
 	execute-keys %sh{
-		leftover=$(printf '%s' "$kak_selections_desc" | sed -E 's/([0-9.]+),\1 *//g')
-		if [ -z "$leftover" ]; then
-			printf '<space>'
-		else
-			printf ';'
-		fi
+		printf '%s' "$kak_selections_length" | sed -nE '
+		/[02-9]|11/{s/^.*$/;/p;q};
+		/1 1/{s/^.*$/,/p;q};
+		s/^.*$/<space>/p
+		'
 	}
 }
 
@@ -302,6 +301,7 @@ declare-option -hidden str copy_cmd %sh{
 	fi
 }
 
+map global normal , ': enter-user-mode user<ret>'
 map global user p %sh{echo "<a-!> $kak_opt_paste_cmd<ret>"} -docstring 'paste after from system clipboard'
 map global user P %sh{echo "! $kak_opt_paste_cmd<ret>"}     -docstring 'paste before from system clipboard'
 map global user y %sh{echo "<a-|> $kak_opt_copy_cmd<ret>"}  -docstring 'copy to system clipboard'
