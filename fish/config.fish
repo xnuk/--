@@ -1,44 +1,16 @@
-set -gx EDITOR kak
-set -gx COLORTERM truecolor
-set -gx LESS '-FR --mouse'
-set -gx LESSHISTFILE '-'
-set -gx BAT_PAGER "less $LESS"
-set -gx CLICOLOR 1
+function update_shell_env
+	set -l __envd "$HOME/.config/environment.d/env.conf"
+	if [ -f "$__envd" ]
+		eval ("$HOME/.config/bin/dotenv" set -gx '\1' '"\2"' ';' < "$__envd")
+	end
+end
 
-set -gx ADBLOCK true
-
-set -gx XDG_CONFIG_HOME $HOME/.config
-set -gx XDG_DATA_HOME $HOME/.local/share
-
-set -gx GNUPGHOME $XDG_CONFIG_HOME/gnupg
-
-set -gx NODE_OPTIONS '--experimental-repl-await'
-set -gx NPM_CONFIG_USERCONFIG $XDG_CONFIG_HOME/npm/npmrc
-set -gx NPM_CONFIG_PREFIX $HOME/.npm/global-packages
-set -gx N_PREFIX $HOME/.npm/nodes
-set -gx N_PRESERVE_NPM 1
-
-# Thanks poetry I hate it https://github.com/python-poetry/poetry/issues/1917
-set -gx PYTHON_KEYRING_BACKEND keyring.backends.fail.Keyring
-
-set -gx DOTNET_CLI_TELEMETRY_OPTOUT 1
-set -gx NEXT_TELEMETRY_DISABLED 1
-set -gx GATSBY_TELEMETRY_DISABLED 1
-
-# set -gx FZF_TMUX 1
-set -gx FZF_CTRL_T_OPTS '--ansi --preview="bat --color=always --style=numbers,changes,grid {}"'
-set -gx FZF_CTRL_T_COMMAND 'fd --type f'
-
-set -gx CHROME_BIN chromium
-set -gx BROWSER firefox-developer-edition
+update_shell_env
 
 if status is-login
 	and test -z "$DISPLAY" -a "$XDG_VTNR" = 1
 	and not swaymsg -q
-	sh -c "
-		. $XDG_CONFIG_HOME/environment.d/env.conf
-		exec /usr/local/bin/sway-run
-	" & disown
+	sh -c "exec /usr/local/bin/sway-run" & disown
 	exit
 end
 
