@@ -45,10 +45,15 @@ plug github:Delapouite/kakoune-goto-file %{
 	map global goto f '<esc>: try %{ execute-keys gF } catch goto-file<ret>' -docstring 'file'
 }
 
-plug github:occivink/kakoune-sudo-write
+plug github:occivink/kakoune-sudo-write %{
+	alias global sw sudo-write
+}
 
 # shortcut plugins that doesn't care about remapping
-plug github:Delapouite/kakoune-auto-percent
+# can be turned off with auto-percent-unmap
+plug github:Delapouite/kakoune-auto-percent %{
+	map global normal s ': if-cursor s(?i)\Q s(?i)\Q<ret>'
+}
 
 plug! https://gitlab.com/Screwtapello/kakoune-shellcheck
 
