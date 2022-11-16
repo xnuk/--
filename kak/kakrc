@@ -513,7 +513,8 @@ define-command -params 1 update-modeline %{
 
 define-command -hidden git-show-diff-shut-up %{
 	eval %sh{
-		if [ -e "$kak_buffile" ]; then
+		if git rev-parse --is-inside-work-tree 2>/dev/null >/dev/null \
+			&& [ -e "$kak_buffile" ]; then
 			printf "try 'git show-diff'"
 		else
 			printf nop
