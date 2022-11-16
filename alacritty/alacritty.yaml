@@ -2,6 +2,10 @@ import:
 - ~/.config/alacritty/base16-dark.yaml
 - ~/.config/alacritty/linux.yaml
 
+draw_bold_text_with_bright_colors: false
+window:
+  opacity: 0.9
+
 live_config_reload: true
 
 alt_send_esc: true

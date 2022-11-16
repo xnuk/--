@@ -1,5 +1,4 @@
-# Base16 Default Dark - alacritty color config
-# Chris Kempson (http://chriskempson.com)
+# Colors (Base16 Default Dark)
 colors:
   # Default colors
   primary:
@@ -8,7 +7,7 @@ colors:
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text:   '#181818'
+    text: '#d8d8d8'
     cursor: '#d8d8d8'
 
   # Normal colors
@@ -25,25 +24,10 @@ colors:
   # Bright colors
   bright:
     black:   '#585858'
-    red:     '#dc9656'
-    green:   '#282828'
-    yellow:  '#383838'
-    blue:    '#b8b8b8'
-    magenta: '#e8e8e8'
-    cyan:    '#a16946'
+    red:     '#ab4642'
+    green:   '#a1b56c'
+    yellow:  '#f7ca88'
+    blue:    '#7cafc2'
+    magenta: '#ba8baf'
+    cyan:    '#86c1b9'
     white:   '#f8f8f8'
-
-  search:
-    matches:
-      background: '#ff00ff'
-      foreground: '#ffff00'
-    focused_match:
-      background: '#ffff00'
-      foreground: '#ff00ff'
-  footer_bar:
-    background: '#000000'
-    foreground: '#ffffff'
-
-draw_bold_text_with_bright_colors: false
-window:
-  opacity: 0.9
