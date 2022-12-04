@@ -113,3 +113,9 @@ filetypes = ['toml']
 roots = ['.git']
 command = 'taplo'
 args = ['lsp', 'stdio']
+
+[language.terraform]
+filetypes = ['terraform', 'tf']
+command = 'terraform-ls'
+args = ['serve']
+roots = ['.git']
