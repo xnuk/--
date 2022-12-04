@@ -266,8 +266,13 @@ map global goto n h -docstring 'line end'
 map global goto e <esc><c-d>gc -docstring 'half page down'
 map global goto i l -docstring 'line start'
 map global goto u tvc -docstring 'half page up'
+
 map global goto g k -docstring 'buffer top'
 map global goto v j -docstring 'buffer bottom'
+try %{
+	map global goto U k -docstring 'buffer top'
+	map global goto E j -docstring 'buffer bottom'
+}
 
 map global goto <ret> '<esc>: lsp-code-actions<ret>' -docstring 'lsp-code-actions'
 map global normal <F2> ': lsp-rename-prompt<ret>' -docstring 'lsp-rename-prompt'
@@ -413,7 +418,7 @@ hook global WinSetOption filetype=rust %{
 	}
 }
 
-hook global WinSetOption filetype=(haskell|rust) %{
+hook global WinSetOption filetype=(haskell|rust|terraform) %{
 	hook buffer BufWritePost .* lsp-formatting-sync
 }
 
