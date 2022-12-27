@@ -105,6 +105,7 @@ abbr --add -g grm "git switch (git-default-branch); and git pull --rebase; and g
 
 abbr --add -g preonic "dfu-util -d 0483:DF11 -a 0 -s 0x08000000:leave -w -D"
 abbr --add -g pnpx "pnpm dlx"
+abbr --add -g youtube-dl yt-dlp
 
 # thanks I hate it
 function fish_command_not_found
