@@ -1,0 +1,6 @@
+.include /etc/pulse/default.pa
+
+# prevent fade in / fade out
+.nofail
+unload-module module-suspend-on-idle
+.fail

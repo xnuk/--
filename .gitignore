@@ -55,3 +55,5 @@
 !/paru/paru.conf
 
 !/gnupg/gpg-agent.conf
+
+!/pulse/*.pa
