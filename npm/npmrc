@@ -4,3 +4,4 @@ engine-strict = true
 cache-dir = ${HOME}/.cache/pnpm/cache
 store-dir = ${HOME}/.cache/pnpm/store
 state-dir = ${HOME}/.cache/pnpm/state
+global-bin-dir = ${HOME}/.npm/global-packages/bin
