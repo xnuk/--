@@ -24,9 +24,24 @@ filetypes = ['typescript', 'javascript']
 roots = ['deno.json', '.git']
 command = 'sh'
 args = ['-c', '''
-toplevel=$(git rev-parse --show-toplevel 2>/dev/null || true)
+set -euf
 
-if [ -f "$toplevel/deno.json" ]; then
+top=''
+tt='ts'
+
+for _ in $(seq 10); do
+	if [ -f "${top}deno.json" ]; then
+		tt='deno'
+		break
+	elif [ -f "${top}package.json" ]; then
+		tt='ts'
+		break
+	else
+		top="../${top}"
+	fi
+done
+
+if [ "$tt" = 'deno' ]; then
 	exec deno lsp
 else
 	exec typescript-language-server --stdio
