@@ -392,7 +392,7 @@ hook global WinSetOption filetype=(typescript|javascript) %{
 	map global insert <a-ret> '<a-;>x<a-;>| emmet<ret>'
 }
 
-hook global WinSetOption filetype=(html|less|json|toml|yaml|css|sass|ini) %{
+hook global WinSetOption filetype=(html|less|json|toml|yaml|css|sass|ini|tf) %{
 	set buffer autoreload yes
 	set buffer extra_word_chars '_' '-'
 }
