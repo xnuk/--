@@ -7,12 +7,12 @@ end
 
 update_shell_env
 
-if status is-login
-	and test -z "$DISPLAY" -a "$XDG_VTNR" = 1
-	and not swaymsg -q
-	sh -c "exec /usr/local/bin/sway-run" & disown
-	exit
-end
+# if status is-login
+# 	and test -z "$DISPLAY" -a "$XDG_VTNR" = 1
+# 	and not swaymsg -q
+# 	sh -c "exec /usr/local/bin/sway-run" & disown
+# 	exit
+# end
 
 set -g fish_user_paths \
 	$XDG_CONFIG_HOME/bin \
