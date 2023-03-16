@@ -20,3 +20,19 @@ for_window [app_id="^firefoxdeveloperedition$" title="^Firefox Developer Edition
 }
 
 no_focus [class="^jetbrains-studio$" floating]
+
+for_window [instance="^kakaotalk\.exe$" title="^KakaoTalk(Shadow|Edge)Wnd$"] {
+	no_focus
+	floating enable
+	border none
+	move scratchpad
+}
+
+for_window [instance="^explorer\.exe$" title="^Wine System Tray$"] {
+	no_focus
+	move workspace 'Wine System Tray'
+}
+
+for_window [instance="^kakaotalk\.exe$"] {
+	floating enable
+}
