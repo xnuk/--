@@ -1,18 +1,17 @@
-for_window [app_id="gsimplecal"] {
+for_window [app_id="^gsimplecal$"] {
 	floating enable
 	move position mouse
 	move down 10 px, move left 50 px
 	border none
 }
 
-for_window [app_id="pavucontrol"] {
+for_window [app_id="^pavucontrol$"] {
 	floating enable
 	resize set width 700 px height 500 px
 	border normal
 }
 
-no_focus [app_id="firefoxdeveloperedition" title="Firefox Developer Edition — Sharing Indicator"]
-for_window [app_id="firefoxdeveloperedition" title="Firefox Developer Edition — Sharing Indicator"] {
+for_window [app_id="^firefoxdeveloperedition$" title="^Firefox Developer Edition — Sharing Indicator$"] {
 	no_focus
 	floating enable
 	resize set width 20px height 10px
@@ -20,5 +19,4 @@ for_window [app_id="firefoxdeveloperedition" title="Firefox Developer Edition �
 	move workspace 'Firefox Indicator'
 }
 
-no_focus [class="jetbrains-studio" floating]
-
+no_focus [class="^jetbrains-studio$" floating]
