@@ -345,6 +345,7 @@ set global lsp_auto_highlight_references true
 lsp-auto-hover-enable
 # lsp-auto-signature-help-enable
 lsp-stop-on-exit-enable
+lsp-inlay-diagnostics-enable global
 
 lsp-enable
 
@@ -372,7 +373,7 @@ hook global BufCreate .* %{
 	try modeline-parse
 }
 
-hook global WinSetOption filetype=(typescript|javascript) %{
+hook global WinSetOption filetype=(javascript) %{
 	set buffer autoreload yes
 	set buffer formatcmd %sh{
 		echo cat '<<' EOF '|' dash '2>/dev/null >/dev/null &'
@@ -392,7 +393,7 @@ hook global WinSetOption filetype=(typescript|javascript) %{
 	map global insert <a-ret> '<a-;>x<a-;>| emmet<ret>'
 }
 
-hook global WinSetOption filetype=(html|less|json|toml|yaml|css|sass|ini|tf) %{
+hook global WinSetOption filetype=(html|less|json|toml|yaml|css|sass|ini|terraform) %{
 	set buffer autoreload yes
 	set buffer extra_word_chars '_' '-'
 }
@@ -406,8 +407,10 @@ hook global WinSetOption filetype=(css|scss|sass|html|less|json) %{
 		echo EOF
 	}
 	hook buffer BufWritePost .* format
-	map global insert <a-ret> '<a-;>x<a-;>| emmet<ret>'
+}
 
+hook global WinSetOption filetype=(html|typescript) %{
+	map global insert <a-ret> '<a-;>x<a-;>| emmet<ret>'
 }
 
 hook global WinSetOption filetype=rust %{
@@ -418,7 +421,7 @@ hook global WinSetOption filetype=rust %{
 	}
 }
 
-hook global WinSetOption filetype=(haskell|rust|terraform) %{
+hook global WinSetOption filetype=(haskell|rust|terraform|typescript) %{
 	hook buffer BufWritePost .* lsp-formatting-sync
 }
 
@@ -513,7 +516,7 @@ declare-option str modeline_git_branch
 set global modeline_git_branch ''
 
 define-command -params 1 update-modeline %{
-	set %arg{1} modelinefmt '%val{bufname} L%val{cursor_line}#%val{cursor_char_column} %opt{modeline_git_branch}{{context_info}} {{mode_info}} - %val{session}'
+	set %arg{1} modelinefmt "%opt{lsp_modeline} %val{bufname} L%val{cursor_line}#%val{cursor_char_column} %opt{modeline_git_branch}{{context_info}} {{mode_info}} - %val{session}"
 }
 
 define-command -hidden git-show-diff-shut-up %{
@@ -559,3 +562,16 @@ hook global BufCreate \*scratch\* %{
 
 # diff highlight
 add-highlighter global/ regex '^[>|<=]{7,}( [^\r\n]*)?' 0:white,red 1:bright-black,black+i
+
+
+
+# tries fold
+declare-option -hidden range-specs fold_regions 0
+add-highlighter global/fold-regions replace-ranges fold_regions
+hook -group fold global BufCreate .* %{
+	set-option buffer fold_regions %val{timestamp}
+}
+define-command fold -docstring 'fold that' %{
+	set-option -add buffer fold_regions %sh{printf '%s|...' "$kak_selection_desc"}
+}
+map global normal z ': fold<ret>'

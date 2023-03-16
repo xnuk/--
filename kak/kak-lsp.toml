@@ -65,8 +65,8 @@ roots = ['Cargo.toml', '.git']
 command = 'rust-analyzer'
 settings_section = 'rust-analyzer'
 [language.rust.settings.rust-analyzer]
-hoverActions.enable = false
-checkOnSave.command = 'clippy'
+check.command = 'clippy'
+
 
 [language.haskell]
 filetypes = ['haskell']
