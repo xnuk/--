@@ -8,8 +8,6 @@ window:
 
 live_config_reload: true
 
-alt_send_esc: true
-
 mouse_bindings:
 - mouse: Middle
   action: ResetFontSize

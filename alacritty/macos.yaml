@@ -1,6 +1,7 @@
 window:
   dynamic_title: true
   decorations: buttonless
+  option_as_alt: both
 
 font:
   normal:
