@@ -341,11 +341,31 @@ eval %sh{kak-lsp --kakoune -s "$kak_session" --config "$kak_config/kak-lsp.toml"
 set global lsp_hover_anchor true
 set global lsp_hover_max_lines 10
 set global lsp_auto_highlight_references true
+set global lsp_show_hover_format %{
+	info=$lsp_info \
+	diagnostics=$lsp_diagnostics \
+	awk 'BEGIN {
+		info = ENVIRON["info"]
+		diagnostics = ENVIRON["diagnostics"]
+		max_lines = ENVIRON["kak_opt_lsp_hover_max_lines"]
+		info_lines = split(info, info_line, /\n/)
+		for (i = 1; i <= info_lines && i <= 5; i++) {
+			print info_line[i]
+		}
+		if (diagnostics) {
+			if (info) print "---"
+			diag_lines = split(diagnostics, diags, /\n/)
+			for (i = 1; i <= diag_lines && i <= 5; i++) {
+				print diags[i]
+			}
+		}
+	}'
+}
 
 lsp-auto-hover-enable
 # lsp-auto-signature-help-enable
 lsp-stop-on-exit-enable
-lsp-inlay-diagnostics-enable global
+# lsp-inlay-diagnostics-enable global
 
 lsp-enable
 
@@ -373,7 +393,7 @@ hook global BufCreate .* %{
 	try modeline-parse
 }
 
-hook global WinSetOption filetype=(javascript) %{
+hook global WinSetOption filetype=(javascript|typescript) %{
 	set buffer autoreload yes
 	set buffer formatcmd %sh{
 		echo cat '<<' EOF '|' dash '2>/dev/null >/dev/null &'
@@ -421,7 +441,7 @@ hook global WinSetOption filetype=rust %{
 	}
 }
 
-hook global WinSetOption filetype=(haskell|rust|terraform|typescript) %{
+hook global WinSetOption filetype=(haskell|rust|terraform|toml) %{
 	hook buffer BufWritePost .* lsp-formatting-sync
 }
 
