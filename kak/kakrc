@@ -62,7 +62,9 @@ plug github:TeddyDD/kakoune-edit-or-dir %{
 	alias global e edit-or-dir
 }
 
-plug github:occivink/kakoune-filetree
+plug! github:occivink/kakoune-filetree %{
+	require-module filetree
+}
 
 plug github:andreyorst/fzf.kak %{
 	require-module fzf-file
