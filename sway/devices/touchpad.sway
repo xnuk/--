@@ -7,5 +7,7 @@ input 1739:52710:DLL0945:00_06CB:CDE6_Touchpad {
 input 2:14:ETPS/2_Elantech_Touchpad {
 	scroll_method two_finger
 	tap enabled
+	dwt enabled
+	accel_profile adaptive
 	natural_scroll enabled
 }
