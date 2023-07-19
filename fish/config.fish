@@ -108,6 +108,8 @@ abbr --add -g pnpx "pnpm dlx"
 abbr --add -g youtube-dl yt-dlp
 abbr --add -g http-server darkhttpd
 
+abbr --add -g windows-reboot "systemctl reboot --boot-loader-entry=auto-windows"
+
 # thanks I hate it
 function fish_command_not_found
 	__fish_default_command_not_found_handler $argv
