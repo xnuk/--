@@ -11,7 +11,6 @@ plug! xnuk:graphviz.kak
 
 plug github:alexherbo2/surround.kak %{
 	map global normal \' ': enter-surround-mode<ret>'
-	map global normal q ': enter-surround-mode<ret>'
 	map global normal ( ': enter-surround-mode<ret>('
 }
 
