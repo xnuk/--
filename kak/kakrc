@@ -474,7 +474,6 @@ hook global WinSetOption filetype=(typescript|rust) %{
 }
 
 hook global WinSetOption filetype=(asciidoc|markdown) %{
-	autowrap-enable
 	add-highlighter buffer/ wrap
 }
 
@@ -507,9 +506,9 @@ hook global ModeChange .*:insert:normal %{
 	remove-highlighter buffer/line_%val{cursor_line}_default,rgb:404040
 }
 
-hook global NormalKey '[ㄱ-힣]' %{
-	nop %sh{ kime-to english }
-}
+# hook global NormalKey '[ㄱ-힣]' %{
+# 	nop %sh{ kime-to english }
+# }
 
 # why
 hook global BufCreate .*[.](less|rasi) %{

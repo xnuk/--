@@ -299,7 +299,7 @@ bindsym --whole-window BTN_TASK exec $screenshot
 bindsym --whole-window button8 exec $screenshot
 bindsym --whole-window button9 exec $screenshot
 bindsym $mod+Control+space exec \
-	'grim -g "$($HOME/slurp/build/slurp -c ffffff99 -b 00000099 | $HOME/.local/bin/pass-stdin sleep 2)" - | wl-copy && notify-send "Screenshot saved to clipboard."'
+	'grim - | wl-copy && notify-send "Screenshot saved to clipboard."'
 
 # thinking
 for_window [class="^.*"] {
