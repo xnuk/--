@@ -38,6 +38,7 @@ defaultBranch = develop
 [core]
 editor = /usr/bin/kak
 excludesfile = ~/.config/git/ignore
+fsmonitor = true
 
 [diff]
 algorithm = patience
@@ -58,6 +59,9 @@ enabled = true
 
 [merge]
 conflictStyle = diff3
+
+[feature]
+manyFiles = true
 
 [include]
 path = ~/.gitconfig
