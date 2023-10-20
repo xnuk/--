@@ -221,7 +221,9 @@ map global insert <a-u> '<a-;>k'
 map global insert <a-e> '<a-;>j'
 map global insert <c-v> '<c-r>"'
 
-map global normal <c-n> ': new<ret>'
+map global normal <c-n> n
+map global normal <c-e> <a-n>
+
 map global normal <c-d> ': ctrl-d<ret>'
 map global normal <c-w> ': delete-buffer<ret>'
 
