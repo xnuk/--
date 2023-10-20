@@ -42,7 +42,7 @@ if [ -e $XDG_CONFIG_HOME/chips/build.fish ]
 end
 
 alias tmux 'tmux -2'
-alias ls "exa --git --time-style=long-iso"
+alias ls "eza --git --time-style=long-iso"
 alias rm "trash-put --trash-dir=$HOME/.local/share/Trash"
 alias rm! /bin/rm
 alias cp 'cp -i --reflink=auto'
