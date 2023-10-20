@@ -1,0 +1,24 @@
+#!/bin/sh
+# shellcheck shell=dash enable=all
+
+set -euf
+
+grim ~/screenshot.png
+imv -w '@@screenshot@@' ~/screenshot.png &
+imv_pid="$!"
+
+swaymsg 'for_window [app_id="^imv$" title="^@@screenshot@@$"] fullscreen enable global'
+# swaymsg -t get_tree | rg imv -C30
+
+area=$(
+	slurp -c ffffff99 -b 00000099 |
+	sed -E 's/^([0-9]+),([0-9]+) ([0-9]+x[0-9]+)$/\3+\1+\2/' || true
+)
+
+if [ -n "${area}" ]; then
+	if gm convert ~/screenshot.png -crop "${area}" - | wl-copy; then
+		notify-send 'Screenshot saved to clipboard.'
+	fi
+fi
+
+kill "${imv_pid}"

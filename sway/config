@@ -298,8 +298,7 @@ set $screenshot 'grim -g "$($HOME/slurp/build/slurp -m -c ffffff99 -b 00000099)"
 bindsym --whole-window BTN_TASK exec $screenshot
 bindsym --whole-window button8 exec $screenshot
 bindsym --whole-window button9 exec $screenshot
-bindsym $mod+Control+space exec \
-	'grim - | wl-copy && notify-send "Screenshot saved to clipboard."'
+bindsym $mod+Control+space exec 'screenshot'
 
 # thinking
 for_window [class="^.*"] {
