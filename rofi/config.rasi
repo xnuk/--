@@ -3,7 +3,7 @@ configuration {
 	combi-modes: "drun,filebrowser";
 
 	show-icons: true;
-	terminal: "alacritty";
+	terminal: "foot";
 
 	sidebar-mode: false;
 

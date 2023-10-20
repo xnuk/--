@@ -57,3 +57,5 @@
 !/gnupg/gpg-agent.conf
 
 !/pulse/*.pa
+
+!/foot/*
