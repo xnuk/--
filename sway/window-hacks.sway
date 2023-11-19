@@ -7,14 +7,14 @@ for_window [app_id="^gsimplecal$"] {
 
 for_window [app_id="^pavucontrol$"] {
 	floating enable
-	resize set width 700 px height 500 px
+	resize set width 1000 px height 600 px
 	border normal
 }
 
 for_window [app_id="^firefoxdeveloperedition$" title="^Firefox Developer Edition — Sharing Indicator$"] {
 	no_focus
 	floating enable
-	resize set width 20px height 10px
+	resize set width 20 px height 10 px
 	border none
 	move workspace 'Firefox Indicator'
 }

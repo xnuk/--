@@ -1,6 +1,6 @@
 configuration {
 	modes: "combi,filebrowser";
-	combi-modes: "drun,filebrowser";
+	combi-modes: "drun";
 
 	show-icons: true;
 	terminal: "foot";
