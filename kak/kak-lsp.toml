@@ -6,17 +6,23 @@ timeout = 600
 
 [semantic_tokens]
 faces = [
-	{face='documentation', token='comment', modifiers=['documentation']},
-	{face='comment', token='comment'},
-	{face='function', token='function'},
-	{face='keyword', token='keyword'},
-	{face='module', token='namespace'},
-	{face='operator', token='operator'},
-	{face='string', token='string'},
-	{face='type', token='type'},
-	{face='default+d', token='variable', modifiers=['readonly']},
-	{face='default+d', token='variable', modifiers=['constant']},
-	{face='variable', token='variable'},
+    { face = 'documentation', token = 'comment', modifiers = [
+        'documentation',
+    ] },
+    { face = 'comment', token = 'comment' },
+    { face = 'function', token = 'function' },
+    { face = 'keyword', token = 'keyword' },
+    { face = 'module', token = 'namespace' },
+    { face = 'operator', token = 'operator' },
+    { face = 'string', token = 'string' },
+    { face = 'type', token = 'type' },
+    { face = 'default+d', token = 'variable', modifiers = [
+        'readonly',
+    ] },
+    { face = 'default+d', token = 'variable', modifiers = [
+        'constant',
+    ] },
+    { face = 'variable', token = 'variable' },
 ]
 
 [language.tsx]
@@ -64,11 +70,12 @@ check.command = 'clippy'
 filetypes = ['haskell']
 roots = ['Setup.hs', 'stack.yaml', '*.cabal', '.git']
 command = 'haskell-language-server-wrapper'
-args = ['--lsp']
+args = ['--lsp', '-d', '--log-file', '/tmp/kak-lsp/xnuk/haskell-log']
 settings_section = 'haskell'
 
 [language.haskell.settings.haskell]
 haskell.formattingProvider = 'fourmolu'
+haskell.plugin.fourmolu.config.external = true
 
 [language.json]
 filetypes = ['json']
