@@ -17,9 +17,6 @@ update_shell_env
 set -g fish_user_paths \
 	$XDG_CONFIG_HOME/bin \
 	$HOME/.local/bin \
-	$HOME/corepack/bin \
-	$HOME/.local/share/gem/ruby/3.0.0/bin \
-	$HOME/.fzf/bin \
 	$HOME/.cargo/bin \
 	$HOME/.npm/nodes/bin \
 	$HOME/.ghcup/bin \
@@ -27,6 +24,7 @@ set -g fish_user_paths \
 	/usr/local/opt/ruby/bin \
 	/usr/lib/jvm/default/bin \
 	/usr/lib/emscripten \
+	/usr/lib/rustup/bin/ \
 	/usr/local/bin \
 	/usr/bin \
 	/usr/bin/vendor_perl \
