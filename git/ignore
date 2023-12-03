@@ -84,3 +84,6 @@ _minted-*/
 *.vok
 *.vos
 *.glob
+
+*.tfstate
+.terraform
