@@ -7,19 +7,19 @@ good_fg = '#dddddd'
 alternating_tint_bg = '#202020'
 
 # 아 진짜 코드 어떻게 짰길래 맞는 게 없어 -_-
-separator = '<tt><span font="12" font_weight="heavy"></span></tt>'
+separator = '<tt><span font_size="12pt" font_weight="heavy"></span></tt>'
 
 [icons]
 icons = 'awesome5'
 [icons.overrides]
 netw_wireless = ''
 net_wired = ''
-net_down = '<span font="8" font_weight="bold">&#8645;</span>'
+net_down = '<span font_size="8pt" font_weight="bold">&#8645;</span>'
 
 
 [[block]]
 block = 'focused_window'
-format = '<span font="8">$title.str(max_w:100)</span>|'
+format = '<span font_size="8pt">$title.str(max_w:100)</span>|'
 
 [[block]]
 block = 'tea_timer'
@@ -44,11 +44,11 @@ update = false
 [[block]]
 block = 'net'
 device = 'enp31s0'
-format = ' $icon $ip / $speed_up.eng(prefix:Mi, width:3, hide_unit:true) ^icon_net_down $speed_down.eng(prefix:Mi, width:3, hide_unit:true)|'
+format = ' $icon $ip \| $speed_up.eng(prefix:Mi, width:3, hide_unit:true) ^icon_net_down $speed_down.eng(prefix:Mi, width:3, hide_unit:true)|'
 
 [[block]]
 block = 'memory'
-format = ' $icon $mem_used.eng(prefix:Gi, hide_unit:true, width:3) / $mem_total.eng(prefix:Gi, hide_unit:true, width:2)'
+format = ' $icon $mem_avail.eng(prefix:Gi, hide_unit:true, width:4)'
 format_alt = ' $icon_swap $swap_used.eng(prefix:Gi, hide_unit:true, width:3) / $swap_total.eng(prefix:Gi, hide_unit:true, width:2)'
 
 [[block]]
