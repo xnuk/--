@@ -11,3 +11,11 @@ input 2:14:ETPS/2_Elantech_Touchpad {
 	accel_profile adaptive
 	natural_scroll enabled
 }
+
+input 1739:52169:SYNA1D34:00_06CB:CBC9_Touchpad {
+	scroll_method two_finger
+	tap enabled
+	dwt enabled
+	accel_profile adaptive
+	natural_scroll enabled
+}
