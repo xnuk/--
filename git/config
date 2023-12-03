@@ -50,6 +50,9 @@ program = gpg2
 [pull]
 rebase = true
 
+[rebase]
+autosquash = true
+
 [commit]
 gpgsign = true
 verbose = true
@@ -62,6 +65,9 @@ conflictStyle = diff3
 
 [fetch]
 prune = true
+
+[submodule]
+recurse = true
 
 ; [feature]
 ; manyFiles = true
