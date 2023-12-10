@@ -247,6 +247,13 @@ map global normal : '<a-;>'
 map global normal l ': enter-user-mode lsp<ret>'
 map global normal L ': lsp-code-actions<ret>'
 
+# paste all
+map global normal p <a-p>
+
+# clear without yanking
+map global normal c <a-c>
+map global normal d <a-d>
+
 # jump
 map global normal j <c-o>
 map global normal J <tab>
