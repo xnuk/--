@@ -9,7 +9,7 @@ plug xnuk:plug.kak
 
 plug! xnuk:graphviz.kak
 
-plug github:alexherbo2/surround.kak %{
+plug github:xnuk/surround-kak-latest %{
 	map global normal \' ': enter-surround-mode<ret>'
 	map global normal ( ': enter-surround-mode<ret>('
 }
