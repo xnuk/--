@@ -80,8 +80,8 @@ abbr --add -g k "kak"
 abbr --add -g h "eval (history -n 1)"
 abbr --add -g cat "bat"
 abbr --add -g cat! "cat"
-abbr --add -g ll "ls -lh"
-abbr --add -g la "ls -lah"
+abbr --add -g ll "ls -lhb"
+abbr --add -g la "ls -lhba"
 
 abbr --add -g r "git add --all -p"
 
@@ -105,6 +105,8 @@ abbr --add -g youtube-dl yt-dlp
 abbr --add -g http-server darkhttpd
 
 abbr --add -g windows-reboot "systemctl reboot --boot-loader-entry=auto-windows"
+
+abbr --add -g rgf "rg -F"
 
 # thanks I hate it
 function fish_command_not_found
