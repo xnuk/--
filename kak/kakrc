@@ -162,6 +162,14 @@ define-command extend-line %{execute-keys %sh{
 	fi
 }}
 
+define-command smart-paste %{ execute-keys %sh{
+	if [ "$kak_selection_count" -le 1 ]; then
+		printf '<a-p>'
+	else
+		printf 'p'
+	fi
+}}
+
 define-command to-spaces 'execute-keys @'
 define-command to-tabs   'execute-keys <a-@>'
 
@@ -248,7 +256,7 @@ map global normal l ': enter-user-mode lsp<ret>'
 map global normal L ': lsp-code-actions<ret>'
 
 # paste all
-map global normal p <a-p>
+map global normal p ': smart-paste<ret>'
 
 # clear without yanking
 map global normal c <a-c>
