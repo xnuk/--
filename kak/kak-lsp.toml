@@ -99,6 +99,7 @@ args = ['--stdio']
 filetypes = ['crystal']
 roots = ['.git', 'shard.yml', 'shard.yaml']
 command = 'crystalline'
+args = ['--stdio']
 
 [language.python]
 filetypes = ['python']
