@@ -36,3 +36,8 @@ for_window [instance="^explorer\.exe$" title="^Wine System Tray$"] {
 for_window [instance="^kakaotalk\.exe$"] {
 	floating enable
 }
+
+for_window [app_id="^org\.keepassxc\.KeePassXC$"] {
+	floating enable
+	resize set height 50 %
+}
