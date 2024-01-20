@@ -74,8 +74,8 @@ args = ['--lsp', '-d', '--log-file', '/tmp/kak-lsp/xnuk/haskell-log']
 settings_section = 'haskell'
 
 [language.haskell.settings.haskell]
-haskell.formattingProvider = 'fourmolu'
-haskell.plugin.fourmolu.config.external = true
+haskell.formattingProvider = 'ormolu'
+haskell.plugin.ormolu.config.external = true
 
 [language.json]
 filetypes = ['json']

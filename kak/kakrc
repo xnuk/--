@@ -476,7 +476,7 @@ hook global WinSetOption filetype=(haskell) %{
 	set buffer autoreload yes
 	set buffer formatcmd %sh{
 		echo cat '<<' EOF '|' dash '2>/dev/null >/dev/null &'
-		echo fourmolu --mode=inplace "$(realpath "$kak_buffile")"
+		echo ormolu --mode=inplace "$(realpath "$kak_buffile")"
 		echo EOF
 		echo cat
 	}
