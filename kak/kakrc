@@ -50,7 +50,7 @@ plug github:occivink/kakoune-sudo-write %{
 
 # shortcut plugins that doesn't care about remapping
 # can be turned off with auto-percent-unmap
-plug github:Delapouite/kakoune-auto-percent %{
+plug github:xnuk/kakoune-auto-percent %{
 	map global normal s ': if-cursor s(?i)\Q s(?i)\Q<ret>'
 }
 
