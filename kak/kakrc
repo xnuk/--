@@ -527,17 +527,17 @@ add-highlighter global/ column 120 default,rgb:404040
 add-highlighter global/ column 121 default,rgb:404040
 
 hook global ModeChange .*:normal:insert %{
-	set-face buffer Default rgb:D8D8D8,rgb:0F0F0F
+	set-face window Default rgb:D8D8D8,rgb:0F0F0F
 	try %{
-		add-highlighter buffer/ number-lines -hlcursor -separator " " -min-digits 3
-		add-highlighter buffer/ line '%val{cursor_line}' default,rgb:404040
+		add-highlighter window/ number-lines -hlcursor -separator " " -min-digits 3
+		add-highlighter window/ line '%val{cursor_line}' default,rgb:404040
 	}
 }
 
 hook global ModeChange .*:insert:normal %{
-	unset-face buffer Default
-	remove-highlighter buffer/number-lines_-hlcursor_-separator_\ _-min-digits_3
-	remove-highlighter buffer/line_%val{cursor_line}_default,rgb:404040
+	unset-face window Default
+	remove-highlighter window/number-lines_-hlcursor_-separator_\ _-min-digits_3
+	remove-highlighter window/line_%val{cursor_line}_default,rgb:404040
 }
 
 # hook global NormalKey '[ㄱ-힣]' %{
