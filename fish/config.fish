@@ -63,6 +63,8 @@ if not type -q firefox
 	alias firefox firefox-developer-edition
 end
 
+abbr --add -g --position anywhere '>' '>?'
+
 abbr --add -g py2 "python2"
 abbr --add -g py3 "python3"
 abbr --add -g py "python3"
@@ -107,6 +109,7 @@ abbr --add -g http-server darkhttpd
 abbr --add -g windows-reboot "systemctl reboot --boot-loader-entry=auto-windows"
 
 abbr --add -g rgf "rg -F"
+abbr --add -g hx helix
 
 # thanks I hate it
 function fish_command_not_found
