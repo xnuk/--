@@ -20,6 +20,7 @@
 # kakoune
 !/kak/*
 /kak/plugins
+!/kak-tree-sitter/*
 
 # sway
 !/sway/*

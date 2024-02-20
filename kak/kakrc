@@ -93,6 +93,10 @@ plug https://gitlab.com/Screwtapello/kakoune-inc-dec %{
 # 	hook global NormalIdle .* state-save-regs
 # }
 
+# tree sitter
+eval %sh{ kak-tree-sitter -dks --session $kak_session }
+
+
 map global normal b ':buffer '
 
 define-command buffer-jump -params 2 -buffer-completion %{
