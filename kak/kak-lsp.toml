@@ -25,7 +25,7 @@ faces = [
     { face = 'variable', token = 'variable' },
 ]
 
-[language.tsx]
+[language_server.tsserver]
 filetypes = ['typescript', 'javascript']
 roots = ['deno.json', '.git']
 command = 'sh'
@@ -53,62 +53,68 @@ else
 	exec typescript-language-server --stdio
 fi
 ''']
-[language.tsx.settings.deno]
+[language_server.tsserver.settings.deno]
 enable = true
 lint = true
 
-[language.rust]
+[language_server.biome]
+filetypes = ['typescript', 'javascript', 'json']
+roots = ['deno.json', '.git']
+command = 'biome'
+args = ['lsp-proxy']
+
+[language_server.rust]
 filetypes = ['rust']
 roots = ['Cargo.toml', '.git']
 command = 'rust-analyzer'
 settings_section = 'rust-analyzer'
-[language.rust.settings.rust-analyzer]
+[language_server.rust.settings.rust-analyzer]
 check.command = 'clippy'
 
 
-[language.haskell]
+[language_server.haskell]
 filetypes = ['haskell']
 roots = ['Setup.hs', 'stack.yaml', '*.cabal', '.git']
 command = 'haskell-language-server-wrapper'
 args = ['--lsp', '-d', '--log-file', '/tmp/kak-lsp/xnuk/haskell-log']
 settings_section = 'haskell'
 
-[language.haskell.settings.haskell]
+[language_server.haskell.settings.haskell]
 haskell.formattingProvider = 'ormolu'
 haskell.plugin.ormolu.config.external = true
 
-[language.json]
+[language_server.json]
 filetypes = ['json']
 roots = ['package.json']
 command = 'vscode-json-languageserver'
 args = ['--stdio']
 
-[language.yaml]
+[language_server.yaml]
 filetypes = ['yaml']
 roots = ['.git']
 command = 'yaml-language-server'
 args = ['--stdio']
 
-[language.scss]
+[language_server.scss]
 filetypes = ['scss']
 roots = ['.git']
 command = 'stylelint-lsp'
 args = ['--stdio']
 
-[language.crystal]
+[language_server.crystal]
 filetypes = ['crystal']
 roots = ['.git', 'shard.yml', 'shard.yaml']
 command = 'crystalline'
 args = ['--stdio']
 
-[language.python]
+[language_server.python]
 filetypes = ['python']
 roots = ['requirements.txt', 'setup.py', 'setup.cfg', 'pyproject.toml', '.git']
 
 # # try this on mypy v0.981
 # command = 'pylsp'
 # settings_section = '_'
-# [language.python.settings._.pylsp.plugins]
+# [language_server.python.settings._.pylsp.plugins]
 # pycodestyle.enabled = true
 # yapf.enabled = false
 # mypy.enabled = true
@@ -118,18 +124,18 @@ roots = ['requirements.txt', 'setup.py', 'setup.cfg', 'pyproject.toml', '.git']
 command = 'pyright-langserver'
 args = ['--stdio']
 
-[language.java]
+[language_server.java]
 filetypes = ['java']
 roots = ['.git', 'pom.xml']
 command = 'java-language-server'
 
-[language.toml]
+[language_server.toml]
 filetypes = ['toml']
 roots = ['.git']
 command = 'taplo'
 args = ['lsp', 'stdio']
 
-[language.terraform]
+[language_server.terraform]
 filetypes = ['terraform', 'tf']
 command = 'terraform-ls'
 args = ['serve']

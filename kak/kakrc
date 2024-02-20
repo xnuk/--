@@ -417,7 +417,7 @@ hook global WinSetOption filetype=(javascript|typescript) %{
 	set buffer autoreload yes
 	set buffer formatcmd %sh{
 		echo cat '<<' EOF '|' dash '2>/dev/null >/dev/null &'
-		echo prettier --write "$(realpath "$kak_buffile")"
+		echo biome format --write "$(realpath "$kak_buffile")"
 		echo yarny eslint --fix "$(realpath "$kak_buffile")"
 		echo EOF
 		echo cat
@@ -443,7 +443,7 @@ hook global WinSetOption filetype=(css|scss|sass|html|less|json) %{
 	set buffer extra_word_chars '_' '-'
 	set buffer formatcmd %sh{
 		echo cat '<<' EOF '|' dash '2>/dev/null >/dev/null & cat'
-		echo prettier --write "$(realpath "$kak_buffile")"
+		echo biome format --write "$(realpath "$kak_buffile")"
 		echo EOF
 	}
 	hook buffer BufWritePost .* format
