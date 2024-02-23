@@ -419,30 +419,30 @@ hook global BufCreate .* %{
 
 hook global WinSetOption filetype=(javascript|typescript) %{
 	set buffer autoreload yes
-	set buffer formatcmd %sh{
-		echo cat '<<' EOF '|' dash '2>/dev/null >/dev/null &'
-		echo biome format --write "$(realpath "$kak_buffile")"
-		echo yarny eslint --fix "$(realpath "$kak_buffile")"
-		echo EOF
-		echo cat
-	}
+	# set buffer formatcmd %sh{
+	# 	echo cat '<<' EOF '|' dash '2>/dev/null >/dev/null &'
+	# 	echo biome format --write "$(realpath "$kak_buffile")"
+	# 	echo yarny eslint --fix "$(realpath "$kak_buffile")"
+	# 	echo EOF
+	# 	echo cat
+	# }
 
-	set buffer lintcmd %sh{
-		format="--format=$HOME/.npm/global-packages/lib/node_modules/eslint-formatter-kakoune"
-		ignore_last="ruby -e 'system *ARGV[0...-1]'"
-		printf "%s yarny %s %s %s" "$ignore_last" eslint "$format" "$kak_buffile"
-	}
+	# set buffer lintcmd %sh{
+	# 	format="--format=$HOME/.npm/global-packages/lib/node_modules/eslint-formatter-kakoune"
+	# 	ignore_last="ruby -e 'system *ARGV[0...-1]'"
+	# 	printf "%s yarny %s %s %s" "$ignore_last" eslint "$format" "$kak_buffile"
+	# }
 
-	hook buffer BufWritePost .*\.(tsx?|jsx?) format
+	# hook buffer BufWritePost .*\.(tsx?|jsx?) format
 	map global insert <a-ret> '<a-;>x<a-;>| emmet<ret>'
 }
 
-hook global WinSetOption filetype=(html|less|json|toml|yaml|css|sass|ini|terraform) %{
+hook global WinSetOption filetype=(html|less|json|toml|yaml|css|sass|ini|terraform|json) %{
 	set buffer autoreload yes
 	set buffer extra_word_chars '_' '-'
 }
 
-hook global WinSetOption filetype=(css|scss|sass|html|less|json) %{
+hook global WinSetOption filetype=(css|scss|sass|html|less) %{
 	set buffer autoreload yes
 	set buffer extra_word_chars '_' '-'
 	set buffer formatcmd %sh{
@@ -467,6 +467,10 @@ hook global WinSetOption filetype=rust %{
 
 hook global WinSetOption filetype=(rust|terraform|toml) %{
 	hook buffer BufWritePost .* lsp-formatting-sync
+}
+
+hook global WinSetOption filetype=(json|javascript|typescript) %{
+	hook buffer BufWritePost .* %{lsp-formatting-sync biome}
 }
 
 hook global WinSetOption filetype=(java) %{

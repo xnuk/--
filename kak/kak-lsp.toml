@@ -25,6 +25,12 @@ faces = [
     { face = 'variable', token = 'variable' },
 ]
 
+[language_server.biome]
+filetypes = ['typescript', 'javascript', 'json']
+roots = ['deno.json', '.git']
+command = 'biome'
+args = ['lsp-proxy']
+
 [language_server.tsserver]
 filetypes = ['typescript', 'javascript']
 roots = ['deno.json', '.git']
@@ -56,12 +62,6 @@ fi
 [language_server.tsserver.settings.deno]
 enable = true
 lint = true
-
-[language_server.biome]
-filetypes = ['typescript', 'javascript', 'json']
-roots = ['deno.json', '.git']
-command = 'biome'
-args = ['lsp-proxy']
 
 [language_server.rust]
 filetypes = ['rust']
