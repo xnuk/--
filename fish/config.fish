@@ -71,7 +71,6 @@ abbr --add -g py "python3"
 abbr --add -g md "mkdir"
 abbr --add -g v "kak"
 abbr --add -g i "paru -S"
-abbr --add -g iy "paru"
 abbr --add -g tn "to"
 abbr --add -g pk "fkill"
 abbr --add -g gm "gm"
@@ -105,6 +104,8 @@ abbr --add -g preonic "dfu-util -d 0483:DF11 -a 0 -s 0x08000000:leave -w -D"
 abbr --add -g pnpx "pnpm dlx"
 abbr --add -g youtube-dl yt-dlp
 abbr --add -g http-server darkhttpd
+abbr --add -g why 'paru -Qo'
+abbr --add -g remove 'paru -Rsc'
 
 abbr --add -g windows-reboot "systemctl reboot --boot-loader-entry=auto-windows"
 
