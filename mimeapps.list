@@ -1,0 +1,39 @@
+# vim: ft=conf
+[Default Applications]
+# the web things
+x-scheme-handler/http=firefoxdeveloperedition.desktop
+x-scheme-handler/https=firefoxdeveloperedition.desktop
+x-scheme-handler/ftp=firefoxdeveloperedition.desktop
+x-scheme-handler/chrome=firefoxdeveloperedition.desktop
+x-scheme-handler/about=firefoxdeveloperedition.desktop
+x-scheme-handler/unknown=firefoxdeveloperedition.desktop
+
+text/html=firefoxdeveloperedition.desktop
+application/x-extension-htm=firefoxdeveloperedition.desktop
+application/x-extension-html=firefoxdeveloperedition.desktop
+application/x-extension-shtml=firefoxdeveloperedition.desktop
+application/xhtml+xml=firefoxdeveloperedition.desktop
+application/xml=firefoxdeveloperedition.desktop
+application/x-extension-xhtml=firefoxdeveloperedition.desktop
+application/x-extension-xht=firefoxdeveloperedition.desktop
+
+# pdf
+application/pdf=org.gnome.Evince.desktop
+
+# thunar
+inode/directory=thunar.desktop
+
+# ms office files
+application/vnd.ms-excel=libreoffice-calc.desktop
+
+# images
+image/jpeg=imv.desktop
+image/png=imv.desktop
+image/gif=imv.desktop
+image/svg+xml=imv.desktop
+image/webp=imv.desktop
+image/webp=imv.desktop
+
+# videos
+application/x-partial-download=mpv.desktop
+video/mp4=mpv.desktop

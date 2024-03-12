@@ -60,3 +60,6 @@
 !/pulse/*.pa
 
 !/foot/*
+
+!/applications/*
+!/mimeapps.list
