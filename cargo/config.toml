@@ -1,0 +1,5 @@
+[registries.crates-io]
+protocol = 'sparse'
+
+[alias]
+why = 'tree --target all -i'

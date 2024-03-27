@@ -63,3 +63,5 @@
 
 !/applications/*
 !/mimeapps.list
+
+!/cargo/*
