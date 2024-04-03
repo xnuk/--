@@ -130,11 +130,11 @@ filetypes = ['java']
 roots = ['.git', 'pom.xml']
 command = 'java-language-server'
 
-[language_server.toml]
-filetypes = ['toml']
-roots = ['.git']
-command = 'taplo'
-args = ['lsp', 'stdio']
+# [language_server.toml]
+# filetypes = ['toml']
+# roots = ['.git']
+# command = 'taplo'
+# args = ['lsp', 'stdio']
 
 [language_server.terraform]
 filetypes = ['terraform', 'tf']
