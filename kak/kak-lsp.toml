@@ -67,7 +67,7 @@ lint = true
 filetypes = ['rust']
 roots = ['Cargo.toml', '.git']
 command = 'systemd-run'
-args = ['--scope', '--user', '-p', 'MemoryMax=4G', 'rust-analyzer']
+args = ['--scope', '--user', '-p', 'MemoryMax=2G', 'rust-analyzer']
 settings_section = 'rust-analyzer'
 [language_server.rust.settings.rust-analyzer]
 check.command = 'clippy'
