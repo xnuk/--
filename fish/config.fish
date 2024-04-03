@@ -111,6 +111,7 @@ abbr --add -g windows-reboot "systemctl reboot --boot-loader-entry=auto-windows"
 
 abbr --add -g rgf "rg -F"
 abbr --add -g hx helix
+abbr --add -g ncdu 'dua i'
 
 # thanks I hate it
 function fish_command_not_found
