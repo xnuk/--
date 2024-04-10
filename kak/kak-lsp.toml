@@ -141,3 +141,17 @@ filetypes = ['terraform', 'tf']
 command = 'terraform-ls'
 args = ['serve']
 roots = ['.git']
+
+[language_server.gopls]
+filetypes = ['go']
+roots = ['Gopkg.toml', 'go.mod', '.git']
+command = 'gopls'
+[language_server.gopls.settings.gopls]
+hints.assignVariableTypes = true
+hints.compositeLiteralFields = true
+hints.compositeLiteralTypes = true
+hints.constantValues = true
+hints.functionTypeParameters = true
+hints.parameterNames = true
+hints.rangeVariableTypes = true
+"ui.completion.usePlaceholders" = true

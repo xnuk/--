@@ -467,7 +467,7 @@ hook global WinSetOption filetype=rust %{
 	}
 }
 
-hook global WinSetOption filetype=(rust|terraform|toml) %{
+hook global WinSetOption filetype=(rust|terraform|toml|go) %{
 	hook buffer BufWritePost .* lsp-formatting-sync
 }
 
