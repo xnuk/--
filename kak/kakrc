@@ -599,7 +599,7 @@ hook global WinCreate .* %{
 		eval %sh{
 			branch=$(cd "$(dirname "$kak_buffile")" && git rev-parse --abbrev-ref HEAD 2>/dev/null)
 			if [ -n "$branch" ]; then
-				printf 'set window modeline_git_branch "[%%{%s}]"\n' "$branch"
+				printf 'set window modeline_git_branch %%?[%%^%s^]?\n' "$branch"
 			else
 				printf 'set window modeline_git_branch ""\n'
 			fi
