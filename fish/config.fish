@@ -108,6 +108,7 @@ abbr --add -g why 'paru -Qo'
 abbr --add -g remove 'paru -Rsc'
 
 abbr --add -g windows-reboot "systemctl reboot --boot-loader-entry=auto-windows"
+abbr --add -g bios-reboot "systemctl reboot --firmware-setup"
 
 abbr --add -g rgf "rg -F"
 abbr --add -g hx helix
