@@ -630,12 +630,12 @@ add-highlighter global/ regex '^[>|<=]{7,}( [^\r\n]*)?' 0:white,red 1:bright-bla
 
 
 # tries fold
-declare-option -hidden range-specs fold_regions 0
-add-highlighter global/fold-regions replace-ranges fold_regions
-hook -group fold global BufCreate .* %{
-	set-option buffer fold_regions %val{timestamp}
-}
-define-command fold -docstring 'fold that' %{
-	set-option -add buffer fold_regions %sh{printf '%s|...' "$kak_selection_desc"}
-}
-map global normal z ': fold<ret>'
+# declare-option -hidden range-specs fold_regions 0
+# add-highlighter global/fold-regions replace-ranges fold_regions
+# hook -group fold global BufCreate .* %{
+# 	set-option buffer fold_regions %val{timestamp}
+# }
+# define-command fold -docstring 'fold that' %{
+# 	set-option -add buffer fold_regions %sh{printf '%s|...' "$kak_selection_desc"}
+# }
+# map global normal z ': fold<ret>'
