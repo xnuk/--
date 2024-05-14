@@ -10,6 +10,7 @@ input 1390:296:ELECOM_TrackBall_Mouse_EX-G_Pro_TrackBall_Mouse {
 	scroll_method on_button_down
 }
 
+# dongle
 input 1390:297:ELECOM_TrackBall_Mouse_EX-G_Pro_TrackBall {
 	accel_profile adaptive
 	scroll_button BTN_BACK
