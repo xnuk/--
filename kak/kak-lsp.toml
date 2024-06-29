@@ -1,6 +1,9 @@
 verbosity = 2
 snippet_support = true
 
+[language_ids]
+typescript = "typescriptreact"
+
 [server]
 timeout = 600
 
@@ -77,7 +80,7 @@ check.command = 'clippy'
 filetypes = ['haskell']
 roots = ['Setup.hs', 'stack.yaml', '*.cabal', '.git']
 command = 'haskell-language-server-wrapper'
-args = ['--lsp', '-d', '--log-file', '/tmp/kak-lsp/xnuk/haskell-log']
+args = ['--lsp', '-d', '--log-file', '/tmp/kakoune-lsp/xnuk/haskell-log']
 settings_section = 'haskell'
 
 [language_server.haskell.settings.haskell]
