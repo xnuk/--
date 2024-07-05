@@ -29,7 +29,7 @@ faces = [
 ]
 
 [language_server.biome]
-filetypes = ['typescript', 'javascript', 'json']
+filetypes = ['typescript', 'javascript', 'json', 'css']
 roots = ['biome.json', 'deno.json', '.git']
 command = 'biome'
 args = ['lsp-proxy']
