@@ -127,8 +127,3 @@ set -Ux fish_color_error ff0000
 set -Ux fish_color_param 00afff
 set -Ux fish_color_quote 999900
 set -Ux fish_color_redirection 00afff
-
-# nix
-if test -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
-	source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
-end
