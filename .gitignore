@@ -65,3 +65,5 @@
 !/mimeapps.list
 
 !/cargo/*
+
+!/hwdb.d/*

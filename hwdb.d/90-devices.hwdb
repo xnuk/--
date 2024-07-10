@@ -1,0 +1,56 @@
+# vim: sw=1
+#
+# AT Translated Set 2 keyboard
+# /dev/input/by-path/platform-i8042-serio-0-event-kbd
+#
+evdev:atkbd:dmi:bvn*:bvr*:bd*:svn*:pn*:pvr*
+ KEYBOARD_KEY_10=q
+ KEYBOARD_KEY_11=w
+ KEYBOARD_KEY_12=f
+ KEYBOARD_KEY_13=p
+ KEYBOARD_KEY_14=b
+ KEYBOARD_KEY_15=j
+ KEYBOARD_KEY_16=l
+ KEYBOARD_KEY_17=u
+ KEYBOARD_KEY_18=y
+ KEYBOARD_KEY_19=semicolon
+#
+ KEYBOARD_KEY_1e=a
+ KEYBOARD_KEY_1f=r
+ KEYBOARD_KEY_20=s
+ KEYBOARD_KEY_21=t
+ KEYBOARD_KEY_22=g
+ KEYBOARD_KEY_23=m
+ KEYBOARD_KEY_24=n
+ KEYBOARD_KEY_25=e
+ KEYBOARD_KEY_26=i
+ KEYBOARD_KEY_27=o
+#
+# swap
+ KEYBOARD_KEY_28=minus
+ KEYBOARD_KEY_0c=apostrophe
+#
+ KEYBOARD_KEY_2c=z
+ KEYBOARD_KEY_2d=x
+ KEYBOARD_KEY_2e=c
+ KEYBOARD_KEY_2f=d
+ KEYBOARD_KEY_30=v
+ KEYBOARD_KEY_31=k
+ KEYBOARD_KEY_32=h
+#
+# caps lock
+ KEYBOARD_KEY_3a=esc
+# swap
+ KEYBOARD_KEY_38=leftctrl
+ KEYBOARD_KEY_1d=leftalt
+# rightalt
+ KEYBOARD_KEY_b8=hangeul
+# rightctrl
+ KEYBOARD_KEY_9d=hanja
+
+evdev:name:*EX-G Pro TrackBall*
+ KEYBOARD_KEY_90006=reserved
+ KEYBOARD_KEY_90007=btn_side
+ KEYBOARD_KEY_90004=btn_extra
+ KEYBOARD_KEY_90005=btn_extra
+ KEYBOARD_KEY_90008=btn_task

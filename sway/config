@@ -292,12 +292,10 @@ bindsym XF86AudioMute        exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bindsym XF86MonBrightnessUp   exec light -A 2
 bindsym XF86MonBrightnessDown exec light -U 2
 
-set $screenshot 'grim -g "$($HOME/slurp/build/slurp -m -c ffffff99 -b 00000099)" - | wl-copy'
+set $screenshot 'grim -g "$($HOME/.local/bin/slurp -m -c ffffff99 -b 00000099)" - | wl-copy'
 
 # screenshot
-bindsym --whole-window BTN_TASK exec $screenshot
-bindsym --whole-window button8 exec $screenshot
-bindsym --whole-window button9 exec $screenshot
+bindsym --whole-window BTN_EXTRA exec $screenshot
 bindsym $mod+Control+space exec 'screenshot'
 
 # thinking
