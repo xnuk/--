@@ -49,8 +49,13 @@ evdev:atkbd:dmi:bvn*:bvr*:bd*:svn*:pn*:pvr*
  KEYBOARD_KEY_9d=hanja
 
 evdev:name:*EX-G Pro TrackBall*
+# don't use btn_side or btn_extra - shitty applications binds to go back/forward function.
+# useless edge button
  KEYBOARD_KEY_90006=reserved
- KEYBOARD_KEY_90007=btn_side
- KEYBOARD_KEY_90004=btn_extra
- KEYBOARD_KEY_90005=btn_extra
- KEYBOARD_KEY_90008=btn_task
+# the actual side button (bind to task button for no delay)
+ KEYBOARD_KEY_90007=btn_task
+# up down button
+ KEYBOARD_KEY_90004=btn_8
+ KEYBOARD_KEY_90005=btn_8
+# center button
+ KEYBOARD_KEY_90008=btn_9
