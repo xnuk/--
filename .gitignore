@@ -5,6 +5,8 @@
 !/*/
 /*/*
 
+!/*.md
+
 !.gitignore
 !.gitmodules
 !.editorconfig
