@@ -6,6 +6,7 @@ Clone this into `XDG_CONFIG_HOME` (usually `~/.config/`) and chill
 ```sh
 sudo ln -s "$(realpath ./hwdb.d)" hwdb.d
 sudo systemd-hwdb update
+sudo udevadm trigger
 ```
 
 And re-plug the devices
