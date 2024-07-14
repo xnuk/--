@@ -158,3 +158,8 @@ hints.functionTypeParameters = true
 hints.parameterNames = true
 hints.rangeVariableTypes = true
 "ui.completion.usePlaceholders" = true
+
+[language_server.nil]
+filetypes = ['nix']
+command = 'nil'
+roots = ['flake.nix', 'shell.nix', '.git']
