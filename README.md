@@ -14,9 +14,9 @@ If you're using different disk partition (or btrfs subvolume) between
 proper hwdb in every reboot. In this case:
 
 1. do a hard copy: `sudo cp ./hwdb.d/* /etc/udev/hwdb.d/`
-2. or edit `/etc/fstab` to add
+2. (not working) ~~or edit `/etc/fstab` to add
   `x-systemd.automount,x-systemd.before=systemd.hwdb-update.service` option
-  in your partition containing this config folder.
+  in your partition containing this config folder.~~
 
 
 Rebooting will apply changes. To instant apply, do:
