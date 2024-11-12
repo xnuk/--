@@ -37,3 +37,4 @@ image/webp=imv.desktop
 # videos
 application/x-partial-download=mpv.desktop
 video/mp4=mpv.desktop
+video/webm=mpv.desktop
