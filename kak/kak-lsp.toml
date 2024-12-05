@@ -163,3 +163,8 @@ hints.rangeVariableTypes = true
 filetypes = ['nix']
 command = 'nil'
 roots = ['flake.nix', 'shell.nix', '.git']
+
+[language_server.zls]
+filetypes=['zig']
+command = 'zls'
+roots = ['build.zig', '.git']
