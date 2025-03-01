@@ -546,9 +546,9 @@ hook global ModeChange .*:insert:normal %{
 	remove-highlighter window/line_%val{cursor_line}_default,rgb:404040
 }
 
-# hook global NormalKey '[ㄱ-힣]' %{
-# 	nop %sh{ kime-to english }
-# }
+hook global NormalKey '[ㄱ-힣]' %{
+	nop %sh{ kime-to en }
+}
 
 # why
 hook global BufCreate .*[.](less|rasi) %{
