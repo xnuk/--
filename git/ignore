@@ -60,7 +60,8 @@ node_modules/
 .cache/
 dist/
 
-.vscode
+/.vscode/
+/.idea/
 
 # Rust
 /target/
@@ -87,3 +88,12 @@ _minted-*/
 
 *.tfstate
 .terraform
+
+# Android/Kotlin
+/.kotlin/
+/.gradle/
+.externalNativeBuild
+.cxx
+
+# IDEA file
+*.iml
