@@ -19,8 +19,8 @@ plug xnuk:search-highlighter.kak %{
 	set-face global Search rgb:000000,rgb:FFFF00+F
 }
 
-plug xnuk:auto-pairs.kak %{
-	auto-pairs-enable
+plug github:alexherbo2/auto-pairs.kak %{
+	enable-auto-pairs
 }
 
 plug github:occivink/kakoune-expand %{
