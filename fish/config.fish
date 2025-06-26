@@ -48,7 +48,7 @@ alias mv 'mv -i'
 alias trim "awk '{\$1=\$1};1'"
 alias ip 'ip --color=auto'
 alias fontforge 'env GDK_BACKEND=x11 fontforge'
-alias gparted 'sudo env WAYLAND_DISPLAY="$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY" XDG_RUNTIME_DIR=/user/run/0 gparted'
+alias gparted 'sudo -EH gparted'
 
 # Inlining fish-sensible
 alias ...='cd ../..'
