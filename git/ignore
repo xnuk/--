@@ -97,3 +97,7 @@ _minted-*/
 
 # IDEA file
 *.iml
+
+# zig
+/.zig-cache/
+/zig-out/
