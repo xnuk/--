@@ -1,5 +1,5 @@
 exec --no-startup-id swayidle \
-	timeout 600 'swaymsg "output * dpms off"; exec waylock' \
+	timeout 600 'swaymsg "output * dpms off"; exec waylock -ignore-empty-password' \
 	resume 'swaymsg "output * dpms on"' \
 	timeout 900 'swaymsg "output * dpms on; exec systemctl suspend"' \
 	resume 'swaymsg "output * dpms on"' \
