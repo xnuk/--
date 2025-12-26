@@ -29,6 +29,9 @@ insteadOf = "sr:"
 [url "git@git.sr.ht:~xnuk/"]
 insteadOf = "~xnuk:"
 
+[url "git@codeberg.org:"]
+insteadOf = "codeberg:"
+
 [push]
 default = current
 
