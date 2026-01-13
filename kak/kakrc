@@ -292,7 +292,6 @@ try %{
 	map global goto E j -docstring 'buffer bottom'
 }
 
-map global goto <ret> '<esc>: lsp-code-actions<ret>' -docstring 'lsp-code-actions'
 map global normal <F2> ': lsp-rename-prompt<ret>' -docstring 'lsp-rename-prompt'
 
 # Subline line
