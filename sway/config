@@ -296,7 +296,7 @@ set $screenshot 'grim -g "$($HOME/.local/bin/slurp -m -c ffffff99 -b 00000099)" 
 
 # screenshot
 bindsym --whole-window BTN_8 exec $screenshot
-bindsym $mod+Control+space exec 'screenshot'
+bindsym $mod+Control+space exec '"$XDG_CONFIG_HOME/bin/screenshot"'
 
 # thinking
 for_window [class="^.*"] {
