@@ -467,7 +467,7 @@ hook global WinSetOption filetype=(rust|terraform|toml|go) %{
 }
 
 hook global WinSetOption filetype=(json|javascript|typescript) %{
-	hook buffer BufWritePost .* %{lsp-formatting-sync biome}
+	hook buffer BufWritePost .* %{lsp-formatting oxfmt}
 }
 
 hook global WinSetOption filetype=(java) %{

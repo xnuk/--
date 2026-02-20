@@ -28,11 +28,56 @@ faces = [
     { face = 'variable', token = 'variable' },
 ]
 
-[language_server.biome]
-filetypes = ['typescript', 'javascript', 'json', 'css']
-roots = ['biome.json', 'deno.json', '.git']
-command = 'biome'
-args = ['lsp-proxy']
+[language_server.oxfmt]
+filetypes = ['typescript', 'javascript', 'json', 'css', 'html']
+roots = ['.oxfmtrc.json', '.oxfmtrc.jsonc']
+command = 'sh'
+args = ['-c', '''
+set -euf
+
+top=''
+tt='oxc'
+
+for _ in $(seq 10); do
+	if [ -f "${top}.oxfmtrc.json" ] || [ -f "${top}.oxfmtrc.jsonc" ]; then
+		tt='oxc'
+		break
+	else
+		top="../${top}"
+	fi
+done
+
+oxc="${top}node_modules/.bin/oxfmt"
+
+if [ "$tt" = 'oxc' ] && [ -f "${oxc}" ]; then
+	exec "${oxc}" --lsp
+fi
+''']
+
+[language_server.oxlint]
+filetypes = ['typescript', 'javascript', 'json']
+roots = ['.oxlintrc.json', 'oxlint.config.ts']
+command = 'sh'
+args = ['-c', '''
+set -euf
+
+top=''
+
+for _ in $(seq 10); do
+	if [ -f "${top}.oxlintrc.json" ] || [ -f "${top}oxlint.config.ts" ]; then
+		break
+	else
+		top="../${top}"
+	fi
+done
+
+oxc="${top}node_modules/.bin/oxlint"
+
+if [ -f "${oxc}" ]; then
+	exec "${oxc}" --lsp
+fi
+''']
+
 
 [language_server.tsserver]
 filetypes = ['typescript', 'javascript']
