@@ -61,19 +61,10 @@ plug github:TeddyDD/kakoune-edit-or-dir %{
 	alias global e edit-or-dir
 }
 
-plug! github:occivink/kakoune-filetree %{
-	require-module filetree
-}
-
 plug github:andreyorst/fzf.kak %{
 	require-module fzf-file
 	set global fzf_highlight_command bat
 	set global fzf_file_command fd
-}
-
-plug https://gitlab.com/Screwtapello/kakoune-inc-dec %{
-	map global normal <c-a> ': inc-dec-modify-numbers + 1<ret>'
-	map global normal <c-x> ': inc-dec-modify-numbers - 1<ret>'
 }
 
 # plug https://gitlab.com/Screwtapello/kakoune-state-save %{
@@ -354,10 +345,28 @@ map global tmux <space> '! tmux select-layout tiled<ret>' -docstring 'layout: ti
 
 set global incsearch true
 
-# kak-lsp - bring your own kak-lsp
-eval %sh{kak-lsp --kakoune -s "$kak_session" --config "$kak_config/kak-lsp.toml"}
+# Use tab for both indenting and completion
+hook global InsertCompletionShow .* %{
+	try %{
+		execute-keys -draft 'h<a-K>\h<ret>'
+		map window insert <tab> <c-n>
+		map window insert <s-tab> <c-p>
+	}
+}
 
-# set global lsp_cmd "kak-lsp -s %val{session} -vvv --log /tmp/kakoune-lsp/log --config '%val{config}/kak-lsp.toml'"
+hook global InsertCompletionHide .* %{
+	unmap window insert <tab> <c-n>
+	unmap window insert <s-tab> <c-p>
+}
+
+hook global BufCreate .* %{
+	try editorconfig-load
+	try modeline-parse
+}
+
+# kak-lsp - bring your own kak-lsp
+# eval %sh{kak-lsp --kakoune -s "$kak_session" --config "$kak_config/kak-lsp.toml"}
+eval %sh{kak-lsp}
 
 set global lsp_hover_anchor true
 set global lsp_hover_max_lines 10
@@ -394,102 +403,232 @@ define-command -override -hidden lsp-show-error -params 1 %{
 	echo -debug "kak-lsp:" %arg{1}
 }
 
+# remove default lsp
+remove-hooks global lsp-filetype-.*
 
-# Use tab for both indenting and completion
-hook global InsertCompletionShow .* %{
-	try %{
-		execute-keys -draft 'h<a-K>\h<ret>'
-		map window insert <tab> <c-n>
-		map window insert <s-tab> <c-p>
-	}
-}
-
-hook global InsertCompletionHide .* %{
-	unmap window insert <tab> <c-n>
-	unmap window insert <s-tab> <c-p>
-}
-
-hook global BufCreate .* %{
-	try editorconfig-load
-	try modeline-parse
-}
-
-hook global WinSetOption filetype=(javascript|typescript) %{
-	set buffer autoreload yes
-	# set buffer formatcmd %sh{
-	# 	echo cat '<<' EOF '|' dash '2>/dev/null >/dev/null &'
-	# 	echo biome format --write "$(realpath "$kak_buffile")"
-	# 	echo yarny eslint --fix "$(realpath "$kak_buffile")"
-	# 	echo EOF
-	# 	echo cat
-	# }
-
-	# set buffer lintcmd %sh{
-	# 	format="--format=$HOME/.npm/global-packages/lib/node_modules/eslint-formatter-kakoune"
-	# 	ignore_last="ruby -e 'system *ARGV[0...-1]'"
-	# 	printf "%s yarny %s %s %s" "$ignore_last" eslint "$format" "$kak_buffile"
-	# }
-
-	# hook buffer BufWritePost .*\.(tsx?|jsx?) format
-	map global insert <a-ret> '<a-;>x<a-;>| emmet<ret>'
-}
-
-hook global WinSetOption filetype=(html|less|json|toml|yaml|css|sass|ini|terraform|json) %{
-	set buffer autoreload yes
-	set buffer extra_word_chars '_' '-'
-}
-
-hook global WinSetOption filetype=(css|scss|sass|html|less) %{
-	set buffer autoreload yes
-	set buffer extra_word_chars '_' '-'
-	set buffer formatcmd %sh{
-		echo cat '<<' EOF '|' dash '2>/dev/null >/dev/null & cat'
-		echo biome format --write "$(realpath "$kak_buffile")"
-		echo EOF
-	}
-	hook buffer BufWritePost .* format
-}
-
-hook global WinSetOption filetype=(html|typescript) %{
-	map global insert <a-ret> '<a-;>x<a-;>| emmet<ret>'
-}
-
-hook global WinSetOption filetype=rust %{
-	map buffer normal <ret> ': lsp-signature-help<ret>'
-	hook window -group rust-inlay-hints BufWritePost .* rust-analyzer-inlay-hints
+define-command -hidden kak-lsp-enable-semantic-tokens %{
+	hook window -group semantic-tokens BufReload .* lsp-semantic-tokens
+	hook window -group semantic-tokens NormalIdle .* lsp-semantic-tokens
+	hook window -group semantic-tokens InsertIdle .* lsp-semantic-tokens
 	hook -once -always window WinSetOption filetype=.* %{
-		remove-hooks window rust-inlay-hints
+		remove-hooks window semantic-tokens
 	}
 }
 
-hook global WinSetOption filetype=(rust|terraform|toml|go) %{
-	hook buffer BufWritePost .* lsp-formatting-sync
+declare-option -hidden str kak_lsp_oxfmt_config %{
+	[oxfmt]
+	root_globs = ['.oxfmtrc.json', '.oxfmtrc.jsonc']
+	command = 'sh'
+	args = ['-c', '''
+	set -euf
+
+	top=''
+	tt='oxc'
+
+	for _ in $(seq 10); do
+		if [ -f "${top}.oxfmtrc.json" ] || [ -f "${top}.oxfmtrc.jsonc" ]; then
+			tt='oxc'
+			break
+		else
+			top="../${top}"
+		fi
+	done
+
+	oxc="${top}node_modules/.bin/oxfmt"
+
+	if [ "${tt}" = 'oxc' ] && [ -f "${oxc}" ]; then
+		exec "${oxc}" --lsp
+	fi
+	''']
 }
 
-hook global WinSetOption filetype=(json|javascript|typescript) %{
+declare-option -hidden str kak_lsp_oxlint_config %{
+	[oxlint]
+	root_globs = ['.oxlintrc.json', 'oxlint.config.ts']
+	command = 'sh'
+	args = ['-c', '''
+	set -euf
+
+	top=''
+
+	for _ in $(seq 10); do
+		if [ -f "${top}.oxlintrc.json" ] || [ -f "${top}oxlint.config.ts" ]; then
+			break
+		else
+			top="../${top}"
+		fi
+	done
+
+	oxc="${top}node_modules/.bin/oxlint"
+
+	if [ -f "${oxc}" ]; then
+		exec "${oxc}" --lsp
+	fi
+	''']
+}
+
+declare-option -hidden str kak_lsp_tsserver_config %{
+	[tsserver]
+	root_globs = ['deno.json', '.git']
+	command = 'sh'
+	args = ['-c', '''
+	set -euf
+
+	top=''
+	tt='ts'
+
+	for _ in $(seq 10); do
+		if [ -f "${top}deno.json" ]; then
+			tt='deno'
+			break
+		elif [ -f "${top}package.json" ]; then
+			tt='ts'
+			break
+		else
+			top="../${top}"
+		fi
+	done
+
+	if [ "${tt}" = 'deno' ]; then
+		exec deno lsp
+	else
+		exec typescript-language-server --stdio
+	fi
+	''']
+	[tsserver.settings.deno]
+	enable = true
+	lint = true
+}
+
+### JavaScript/TypeScript ###
+
+hook global BufSetOption filetype=(javascript|typescript) %{
+	set-option buffer lsp_servers %sh{
+		echo "${kak_opt_kak_lsp_tsserver_config}"
+		echo "${kak_opt_kak_lsp_oxfmt_config}"
+		echo "${kak_opt_kak_lsp_oxlint_config}"
+	}
+
+	set buffer autoreload yes
+	map global insert <a-ret> '<a-;>x<a-;>| emmet<ret>'
+
 	hook buffer BufWritePost .* %{lsp-formatting oxfmt}
 }
 
-hook global WinSetOption filetype=(java) %{
-	hook buffer BufWritePre .* lsp-formatting-sync
+hook global WinSetOption filetype=typescript %{
+	kak-lsp-enable-semantic-tokens
 }
 
-# 개떡같음...
-hook global WinSetOption filetype=(haskell) %{
-	# hook buffer BufWritePre .* lsp-formatting-sync
-
-	set buffer autoreload yes
-	set buffer formatcmd %sh{
-		echo cat '<<' EOF '|' dash '2>/dev/null >/dev/null &'
-		echo ormolu --mode=inplace "$(realpath "$kak_buffile")"
-		echo EOF
-		echo cat
+### JSON ###
+hook global BufSetOption filetype=json %{
+	set-option buffer lsp_servers %sh{
+		echo "${kak_opt_kak_lsp_oxfmt_config}"
+		cat <<"EOF"
+		[vscode-json-languageserver]
+		root_globs = ['.git']
+		args = ['--stdio']
+EOF
 	}
 
-	hook buffer BufWritePost .* format
+	set buffer autoreload yes
+	set buffer extra_word_chars '_' '-'
+
+	hook buffer BufWritePost .* %{lsp-formatting oxfmt}
 }
 
-hook global WinSetOption filetype=python %{
+### YAML ###
+hook global BufSetOption filetype=yaml %{
+	set-option buffer lsp_servers %{
+		[yaml-language-server]
+		root_globs = ['.git']
+		args = ['--stdio']
+	}
+
+	set buffer autoreload yes
+	set buffer extra_word_chars '_' '-'
+}
+
+### CSS ###
+hook global BufSetOption filetype=css %{
+	set-option buffer lsp_servers %opt{kak_lsp_oxfmt_config}
+
+	set buffer autoreload yes
+	set buffer extra_word_chars '_' '-'
+}
+
+### HTML ###
+hook global BufSetOption filetype=html %{
+	set-option buffer lsp_servers %opt{kak_lsp_oxfmt_config}
+
+	set buffer autoreload yes
+	set buffer extra_word_chars '_' '-'
+
+	map global insert <a-ret> '<a-;>x<a-;>| emmet<ret>'
+}
+
+### Terraform ###
+hook global BufSetOption filetype=terraform %{
+	set-option buffer lsp_servers %{
+		[terraform-ls]
+		root_globs = ['.git', '*.tf']
+		args = ['serve']
+	}
+
+	set buffer autoreload yes
+	set buffer extra_word_chars '_' '-'
+
+	hook buffer BufWritePost .* lsp-formatting-sync
+}
+
+### Go ###
+hook global BufSetOption filetype=go %{
+	set-option buffer lsp_servers %{
+		[language_server.gopls]
+		root_globs = ['Gopkg.toml', 'go.mod', '.git']
+		command = 'gopls'
+		[language_server.gopls.settings.gopls]
+		hints.assignVariableTypes = true
+		hints.compositeLiteralFields = true
+		hints.compositeLiteralTypes = true
+		hints.constantValues = true
+		hints.functionTypeParameters = true
+		hints.parameterNames = true
+		hints.rangeVariableTypes = true
+		"ui.completion.usePlaceholders" = true
+	}
+
+	hook buffer BufWritePost .* lsp-formatting-sync
+}
+
+### Rust ###
+
+hook global BufSetOption filetype=rust %{
+	set-option buffer lsp_servers %{
+		[rust-analyzer]
+		root_globs = ['Cargo.toml', '.git']
+		command = 'systemd-run'
+		args = ['--scope', '--user', '-p', 'MemoryMax=2G', 'rust-analyzer']
+		[rust-analyzer.settings.rust-analyzer]
+		check.command = 'clippy'
+	}
+
+	hook buffer BufWritePost .* lsp-formatting-sync
+}
+
+hook global WinSetOption filetype=rust %{
+	kak-lsp-enable-semantic-tokens
+}
+
+### Zig ###
+hook global BufSetOption filetype=zig %{
+	set-option buffer lsp_servers %{
+		[zls]
+		roots = ['build.zig', '.git']
+	}
+}
+
+### Python ###
+hook global BufSetOption filetype=python %{
 	set buffer formatcmd 'black --preview - | unexpand --tabs=4 --first-only'
 	set buffer lintcmd %sh{
 		format='%(path)s:%(row)d:%(col)d: error: %(text)s'
@@ -499,17 +638,9 @@ hook global WinSetOption filetype=python %{
 	hook buffer BufWritePost .* format
 }
 
+# Enable ShellCheck for kak/sh
 hook global WinSetOption filetype=(kak|sh) %{
 	hook buffer ModeChange .*:insert:normal %{try lint}
-}
-
-hook global WinSetOption filetype=(typescript|rust) %{
-	hook window -group semantic-tokens BufReload .* lsp-semantic-tokens
-	hook window -group semantic-tokens NormalIdle .* lsp-semantic-tokens
-	hook window -group semantic-tokens InsertIdle .* lsp-semantic-tokens
-	hook -once -always window WinSetOption filetype=.* %{
-		remove-hooks window semantic-tokens
-	}
 }
 
 hook global WinSetOption filetype=(asciidoc|markdown) %{
@@ -519,6 +650,10 @@ hook global WinSetOption filetype=(asciidoc|markdown) %{
 hook global WinSetOption filetype=git-rebase %{
 	map buffer normal <ret> '<a-x>s^[a-z]+ ([a-f0-9]+) <ret>: git show <c-r>1<ret>'
 	map buffer normal <tab> '<a-x>s^[a-z]+ ([a-f0-9]+) <ret>: git show <c-r>1<ret>: buffer-previous<ret>'
+}
+
+hook global WinSetOption filetype=(less|toml|sass|ini) %{
+	set buffer extra_word_chars '_' '-'
 }
 
 set-face global Whitespace rgb:333333,default
