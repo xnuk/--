@@ -67,23 +67,6 @@ plug github:andreyorst/fzf.kak %{
 	set global fzf_file_command fd
 }
 
-# plug https://gitlab.com/Screwtapello/kakoune-state-save %{
-# 	hook global KakBegin .* %{
-# 		state-save-reg-load colon
-# 		state-save-reg-load pipe
-# 		state-save-reg-load slash
-# 	}
-
-# 	define-command -hidden state-save-regs %{
-# 		state-save-reg-save colon
-# 		state-save-reg-save pipe
-# 		state-save-reg-save slash
-# 	}
-
-# 	hook global KakEnd .* state-save-regs
-# 	hook global NormalIdle .* state-save-regs
-# }
-
 map global normal b ':buffer '
 
 define-command buffer-jump -params 2 -buffer-completion %{
