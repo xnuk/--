@@ -48,43 +48,9 @@ plug github:occivink/kakoune-sudo-write %{
 	alias global sw sudo-write
 }
 
-# shortcut plugins that doesn't care about remapping
-# can be turned off with auto-percent-unmap
-plug github:xnuk/kakoune-auto-percent %{
-	map global normal s ': if-cursor s(?i)\Q s(?i)\Q<ret>'
-}
-
 plug! https://gitlab.com/Screwtapello/kakoune-shellcheck
 
-plug github:TeddyDD/kakoune-edit-or-dir %{
-	unalias global e edit
-	alias global e edit-or-dir
-}
-
-plug github:andreyorst/fzf.kak %{
-	require-module fzf-file
-	set global fzf_highlight_command bat
-	set global fzf_file_command fd
-}
-
 map global normal b ':buffer '
-
-define-command buffer-jump -params 2 -buffer-completion %{
-	buffer %arg{1}
-	execute-keys "%arg{2}gx"
-}
-
-define-command fzf-real-buffer-file-search %{
-	declare-option -hidden str fzf_real_patho %sh{mktemp}
-	evaluate-commands -draft -buffer * %{
-		execute-keys -draft "%%<a-|> nl -nrn -ba | sed -E 's|^ *|%val{bufname}\t|' >> %opt{fzf_real_patho}<ret>"
-	}
-	fzf -kak-cmd 'eval buffer-jump' -items-cmd "cat %opt{fzf_real_patho}" -fzf-args %[ \
-		+m --tiebreak=index --prompt="Lines>" --ansi --extended --delimiter="\t" --nth=3.. --tabstop=1 --layout=reverse-list \
-	] -filter 'cut -f1-2' -post-action %[
-		nop %sh{rm "$kak_opt_fzf_real_patho"}
-	]
-}
 
 set-option -add global ui_options terminal_status_on_top=yes
 set-option -add global ui_options terminal_assistant=cat
@@ -250,7 +216,6 @@ map global normal '#' ': comment-prefer-line<ret>'
 map global normal '^' ': comment-prefer-block<ret>'
 map global insert '<a-f>' '<a-;>: comment-line<ret>'
 map global goto l <a-\;>n -docstring 'next search pattern'
-map global goto j <a-\;>:buffer-jump<ret> -docstring 'buffer jump'
 map global goto k <a-\;>:buffer-previous<ret> -docstring 'buffer previous'
 map global goto h <a-\;>:buffer-next<ret> -docstring 'buffer next'
 
