@@ -19,8 +19,7 @@
 
 # kakoune
 !/kak/*
-/kak/plugins
-!/kak-tree-sitter/*
+/kak/autoload/std
 
 # sway
 !/sway/*

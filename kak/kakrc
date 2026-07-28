@@ -1,49 +1,42 @@
-try %{ source "%val{config}/plugins/plug/plug.kak" } catch %{
-	eval %sh{
-		curl --silent -L https://xnuk.github.io/plug.kak
-	}
-}
-require-module plug
+### Plugins ###
 
-plug xnuk:plug.kak
-
-plug! xnuk:graphviz.kak
-
-plug github:xnuk/surround-kak-latest %{
-	map global normal \' ': enter-surround-mode<ret>'
-	map global normal ( ': enter-surround-mode<ret>('
+nop %sh{
+	mkdir -p "${kak_config}/autoload"
+	if ! test -e "${kak_config}/autoload/std"; then
+		ln -s "${kak_runtime}/rc" "${kak_config}/autoload/std"
+	fi
 }
 
-plug xnuk:search-highlighter.kak %{
-	search-highlighter-enable
-	set-face global Search rgb:000000,rgb:FFFF00+F
+# ./autoload/plugins/surround.kak
+map global normal \' ': enter-surround-mode<ret>'
+map global normal ( ': enter-surround-mode<ret>('
+
+# ./autoload/plugins/search-highlighter.kak
+search-highlighter-enable
+set-face global Search rgb:000000,rgb:FFFF00+F
+
+# ./autoload/plugins/auto-pairs.kak
+enable-auto-pairs
+
+# ./autoload/plugins/expand.kak
+map global normal = ': expand<ret>'
+declare-option str expand_commands %{
+	expand-impl %{ exec <a-a>b }
+	expand-impl %{ exec <a-a>B }
+	expand-impl %{ exec <a-i><a-w> }
+	expand-impl %{ exec "<a-i>c[({[=\s]','[\]}):;\s]<ret>" }
+	expand-impl %{ exec '<a-i>c[({[=\s]","[\]}):;\s]<ret>' }
+	expand-impl %{ exec <a-a>r }
+	expand-impl %{ exec <a-i>i }
+	expand-impl %{ exec <a-i>p }
+	expand-impl %{ exec '<a-:><a-;>k<a-K>^$<ret><a-i>i' } # previous indent level (upward)
+	expand-impl %{ exec '<a-:>j<a-K>^$<ret><a-i>i' }      # previous indent level (downward)
 }
 
-plug github:alexherbo2/auto-pairs.kak %{
-	enable-auto-pairs
-}
+# ./autoload/plugins/sudo-write.kak
+alias global sw sudo-write
 
-plug github:occivink/kakoune-expand %{
-	map global normal = ': expand<ret>'
-	declare-option str expand_commands %{
-		expand-impl %{ exec <a-a>b }
-		expand-impl %{ exec <a-a>B }
-		expand-impl %{ exec <a-i><a-w> }
-		expand-impl %{ exec "<a-i>c[({[=\s]','[\]}):;\s]<ret>" }
-		expand-impl %{ exec '<a-i>c[({[=\s]","[\]}):;\s]<ret>' }
-		expand-impl %{ exec <a-a>r }
-		expand-impl %{ exec <a-i>i }
-		expand-impl %{ exec <a-i>p }
-		expand-impl %{ exec '<a-:><a-;>k<a-K>^$<ret><a-i>i' } # previous indent level (upward)
-		expand-impl %{ exec '<a-:>j<a-K>^$<ret><a-i>i' }      # previous indent level (downward)
-	}
-}
-
-plug github:occivink/kakoune-sudo-write %{
-	alias global sw sudo-write
-}
-
-plug! https://gitlab.com/Screwtapello/kakoune-shellcheck
+### Config ###
 
 map global normal b ':buffer '
 
