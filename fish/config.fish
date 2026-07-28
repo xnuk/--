@@ -34,9 +34,9 @@ set -g fish_user_paths \
 
 set -gx GPG_TTY (tty)
 
-# chips
-if [ -e $XDG_CONFIG_HOME/chips/build.fish ]
-	source $XDG_CONFIG_HOME/chips/build.fish
+# cgitc
+if test -f "$XDG_CONFIG_HOME/fish/plugins/cgitc/init.fish"
+	source "$XDG_CONFIG_HOME/fish/plugins/cgitc/init.fish"
 end
 
 alias tmux 'tmux -2'

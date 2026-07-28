@@ -1,7 +1,13 @@
 [submodule "con"]
-	path = con
-	url = https://github.com/xnuk/apple-apfs-test.git
+path = con
+url = https://github.com/xnuk/apple-apfs-test.git
+
 [submodule "kime"]
-	path = kime
-	url = git@github.com:xnuk/layouts.git
-	branch = kime
+path = kime
+url = git@github.com:xnuk/layouts.git
+branch = kime
+
+[submodule "cgitc"]
+path = fish/plugins/cgitc
+url = https://github.com/simnalamburt/cgitc.git
+branch = main

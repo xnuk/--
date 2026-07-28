@@ -15,9 +15,7 @@
 # fish
 !/fish/config.fish
 !/fish/functions/
-/fish/functions/gitstatus.fish
-/fish/functions/to.fish
-/fish/functions/fish_prompt.fish
+!/fish/plugins/
 
 # kakoune
 !/kak/*
