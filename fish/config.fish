@@ -66,14 +66,10 @@ end
 
 abbr --add -g --position anywhere '>' '>?'
 
-abbr --add -g py2 "python2"
-abbr --add -g py3 "python3"
 abbr --add -g py "python3"
 abbr --add -g md "mkdir"
-abbr --add -g v "kak"
 abbr --add -g i "paru -S"
 abbr --add -g tn "to"
-abbr --add -g pk "fkill"
 abbr --add -g gm "gm"
 abbr --add -g gls "tar -tf"
 abbr --add -g xxd "hexdump -C"
@@ -87,32 +83,16 @@ abbr --add -g la "ls -lhba"
 
 abbr --add -g r "git add --all -p"
 
-abbr --add -g gw "git w (list-branch | fzf)"
-abbr --add -g gcmm "git commit -m"
-abbr --add -g gr "git rm --cached"
 abbr --add -g gs "git-show"
-abbr --add -g gmi "git rebase master -i"
 abbr --add -g gsw "git sw"
-abbr --add -g gsm "git switch (git-default-branch)"
-abbr --add -g gc! "git commit -vn --amend"
-abbr --add -g g- "git switch -"
-abbr --add -g grsh "git reset --soft HEAD~1"
-abbr --add -g gun "git unstage"
-abbr --add -g gst "git stash"
-abbr --add -g grm "git switch (git-default-branch); and git pull --rebase; and git switch -; and git rebase - -i"
 
 abbr --add -g preonic "dfu-util -d 0483:DF11 -a 0 -s 0x08000000:leave -w -D"
 abbr --add -g pnpx "pnpm dlx"
-abbr --add -g youtube-dl yt-dlp
-abbr --add -g http-server darkhttpd
 abbr --add -g why 'paru -Qo'
-abbr --add -g remove 'paru -Rsc'
 
 abbr --add -g windows-reboot "systemctl reboot --boot-loader-entry=auto-windows"
 abbr --add -g bios-reboot "systemctl reboot --firmware-setup"
 
-abbr --add -g rgf "rg -F"
-abbr --add -g hx helix
 abbr --add -g ncdu 'dua i'
 
 # thanks I hate it
