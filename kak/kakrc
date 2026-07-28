@@ -39,11 +39,6 @@ plug github:occivink/kakoune-expand %{
 	}
 }
 
-plug github:Delapouite/kakoune-goto-file %{
-	map global goto <a-f> f
-	map global goto f '<esc>: try %{ execute-keys gF } catch goto-file<ret>' -docstring 'file'
-}
-
 plug github:occivink/kakoune-sudo-write %{
 	alias global sw sudo-write
 }
@@ -113,8 +108,16 @@ define-command smart-paste %{ execute-keys %sh{
 define-command to-spaces 'execute-keys @'
 define-command to-tabs   'execute-keys <a-@>'
 
-define-command lsp-try-add-signature -docstring 'try add signature' %{
-	try %{ lsp-code-action 'add signature' } catch lsp-code-actions
+define-command goto-file %{
+	try %{
+		execute-keys -with-hooks gf
+	} catch %{
+		execute-keys <a-a><a-w>
+		execute-keys -with-hooks gf
+	} catch %{
+		execute-keys s[^'"\n]+<ret><a-k>/<ret>),
+		execute-keys -with-hooks gf
+	}
 }
 
 # How dare you guise use spaces
@@ -230,6 +233,8 @@ try %{
 	map global goto U k -docstring 'buffer top'
 	map global goto E j -docstring 'buffer bottom'
 }
+
+map global goto f '<esc>: goto-file<ret>' -docstring file
 
 map global normal <F2> ': lsp-rename-prompt<ret>' -docstring 'lsp-rename-prompt'
 
