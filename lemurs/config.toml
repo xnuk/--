@@ -1,0 +1,133 @@
+tty = 2
+
+main_log_path = "/var/log/lemurs.log"
+client_log_path = "/var/log/lemurs.client.log"
+cache_path = "/var/cache/lemurs"
+pam_service = "lemurs"
+system_shell = "/bin/sh"
+initial_path = "/usr/local/sbin:/usr/local/bin:/usr/bin"
+
+# The type flag that will be appended to the shell that calls the session
+# environment. This may depend on your shell. Options:
+# - 'none'. Disables calling a login shell
+# - 'short'. Produces the `-l` flag. Supported by most shells.
+# - 'long'. This produces the `--login` flag and is suited for bash and zsh.
+shell_login_flag = "short"
+
+# Focus behaviour of fields when Lemurs is initially started
+# 
+# Possible values:
+# - default: Initially focus on first non-cached value
+# - no-focus: No initial focus
+# - environment: Initially focus on the environment selector
+# - username: Initially focus on the username field
+# - password: Initially focus on the password field
+focus_behaviour = "default"
+
+# General settings for background style
+[background]
+show_background = false
+
+[background.style]
+show_border = false
+
+[power_controls]
+hint_margin = 2
+
+[[power_controls.base_entries]]
+hint = "Shutdown"
+key = "F1"
+cmd = "systemctl poweroff -l"
+
+hint_color = "dark gray"
+hint_modifiers = ""
+
+[[power_controls.base_entries]]
+hint = "Reboot"
+key = "F2"
+cmd = "systemctl reboot -l"
+
+hint_color = "dark gray"
+hint_modifiers = ""
+
+[[power_controls.base_entries]]
+hint = "Reboot to Windows"
+key = "F3"
+cmd = "systemctl reboot --boot-loader-entry=auto-windows -l"
+
+hint_color = "dark gray"
+hint_modifiers = ""
+
+[environment_switcher]
+switcher_visibility = "visible"
+include_tty_shell = false
+
+remember = true
+
+show_movers = true
+
+mover_color = "dark gray" 
+mover_modifiers = ""
+
+mover_color_focused = "gray"
+mover_modifiers_focused = "bold" 
+
+left_mover = "<"
+right_mover = ">"
+
+mover_margin = 1
+
+show_neighbours = true
+
+neighbour_color = "dark gray"
+neighbour_color_focused = "gray"
+
+# Margin between neighbours and selected
+neighbour_margin = 1
+
+selected_color = "gray"
+selected_modifiers = "underlined"
+selected_color_focused = "white"
+selected_modifiers_focused = "underlined"
+
+# The length of the name of the desktop environment which is displayed.
+max_display_length = 8
+
+[username_field]
+remember = true
+
+[username_field.style]
+show_title = true
+title = "Login"
+
+title_color = "dark gray"
+content_color = "gray"
+
+title_color_focused = "white"
+content_color_focused = "white"
+
+show_border = false
+
+use_max_width = true
+max_width = 48
+
+[password_field]
+content_replacement_character = "*"
+
+[password_field.style]
+show_title = true
+title = "Password"
+
+title_color = "dark gray"
+content_color = "gray"
+
+title_color_focused = "white"
+content_color_focused = "white"
+
+show_border = false
+
+use_max_width = true
+max_width = 48
+
+[wayland]
+scripts_path = "/etc/lemurs/wayland"

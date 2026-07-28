@@ -1,9 +1,11 @@
 #!/bin/dash
 # shellcheck shell=dash enable=all
 
-# [ -f /etc/profile ] && . /etc/profile
+# https://www.lorenzobettini.it/2024/06/environment-variables-in-sway/
+# export $(/usr/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
+
 [ -f "${HOME}/.config/environment.d/env.conf" ] && eval "$(
 	sed -E 's/^([^=]+)=(.*)$/export \1="\2"/' "${HOME}/.config/environment.d/env.conf" || true
 )"
 
-exec "$@"
+exec sway 2> "${HOME}/sway.log"
