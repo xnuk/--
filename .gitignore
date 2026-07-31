@@ -41,6 +41,10 @@
 # npm
 !/npm/*
 
+# systemd services
+!/systemd/user/
+/systemd/user/*/
+
 !/imv/config
 !/gtk-3.0/settings.ini
 !/gtk-4.0/settings.ini

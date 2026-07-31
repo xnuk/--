@@ -99,8 +99,37 @@ function prompt_dir -d "Display the current directory"
   prompt_segment 1C1C1C FFFFFF (prompt_pwd)
 end
 
-
 function prompt_git -d "Display the current git state"
+	if command -q gitstatusd-launcher
+		prompt_git_statusd
+	else
+		prompt_git_legacy
+	end
+end
+
+function prompt_git_statusd
+	set -l prompt (
+		gitstatusd-launcher --port=38080:38081-38090 client (realpath . 2>/dev/null) 2>/dev/null
+	)
+
+	set -l st (string sub --end=1 "$prompt")
+	set -l prompt (string sub --start=2 "$prompt")
+
+	# dirty
+	if [ "$st" = '@' ]
+		set BG yellow
+	else if [ "$st" = "+" ]
+		set BG white
+	else
+		set BG green
+	end
+
+	if [ -n "$prompt" ]
+		prompt_segment $BG black $prompt
+	end
+end
+
+function prompt_git_legacy -d "Display the current git state"
   set -l ref
   if command git rev-parse --is-inside-work-tree >/dev/null 2>&1
     set ref (command git symbolic-ref HEAD 2> /dev/null)

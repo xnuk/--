@@ -1,0 +1,19 @@
+# vim: ft=ini
+[Unit]
+Description=gitstatusd as a service
+
+[Service]
+Type=simple
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+NoNewPrivileges=yes
+RestrictNamespaces=yes
+ExecStart=%h/.local/bin/gitstatusd-launcher \
+	--port=38080:38081-38090 \
+	server \
+	"%h/.local/bin/gitstatusd-linux-x86_64" -v ERROR -t 7
+Restart=always
+Slice=session.slice
+
+[Install]
+WantedBy=default.target
