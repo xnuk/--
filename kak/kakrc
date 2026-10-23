@@ -361,99 +361,56 @@ define-command -hidden kak-lsp-enable-semantic-tokens %{
 	}
 }
 
-declare-option -hidden str kak_lsp_oxfmt_config %{
-	[oxfmt]
-	root_globs = ['.oxfmtrc.json', '.oxfmtrc.jsonc']
-	command = 'sh'
-	args = ['-c', '''
-	set -euf
-
-	top=''
-	tt='oxc'
-
-	for _ in $(seq 10); do
-		if [ -f "${top}.oxfmtrc.json" ] || [ -f "${top}.oxfmtrc.jsonc" ]; then
-			tt='oxc'
-			break
-		else
-			top="../${top}"
-		fi
-	done
-
-	oxc="${top}node_modules/.bin/oxfmt"
-
-	if [ "${tt}" = 'oxc' ] && [ -f "${oxc}" ]; then
-		exec "${oxc}" --lsp
-	fi
-	''']
-}
-
-declare-option -hidden str kak_lsp_oxlint_config %{
-	[oxlint]
-	root_globs = ['.oxlintrc.json', 'oxlint.config.ts']
-	command = 'sh'
-	args = ['-c', '''
-	set -euf
-
-	top=''
-
-	for _ in $(seq 10); do
-		if [ -f "${top}.oxlintrc.json" ] || [ -f "${top}oxlint.config.ts" ]; then
-			break
-		else
-			top="../${top}"
-		fi
-	done
-
-	oxc="${top}node_modules/.bin/oxlint"
-
-	if [ -f "${oxc}" ]; then
-		exec "${oxc}" --lsp
-	fi
-	''']
-}
-
-declare-option -hidden str kak_lsp_tsserver_config %{
-	[tsserver]
-	root_globs = ['deno.json', '.git']
-	command = 'sh'
-	args = ['-c', '''
-	set -euf
-
-	top=''
-	tt='ts'
-
-	for _ in $(seq 10); do
-		if [ -f "${top}deno.json" ]; then
-			tt='deno'
-			break
-		elif [ -f "${top}package.json" ]; then
-			tt='ts'
-			break
-		else
-			top="../${top}"
-		fi
-	done
-
-	if [ "${tt}" = 'deno' ]; then
-		exec deno lsp
-	else
-		exec typescript-language-server --stdio
-	fi
-	''']
-	[tsserver.settings.deno]
-	enable = true
-	lint = true
-}
-
 ### JavaScript/TypeScript ###
 
-hook global BufSetOption filetype=(javascript|typescript) %{
+define-command -hidden js-lsp-setup %{
 	set-option buffer lsp_servers %sh{
-		echo "${kak_opt_kak_lsp_tsserver_config}"
-		echo "${kak_opt_kak_lsp_oxfmt_config}"
-		echo "${kak_opt_kak_lsp_oxlint_config}"
+		rootdir=$(dirname "${kak_buffile}")
+		bindir=
+		for _ in $(seq 10); do
+			if [ -d "${rootdir}/node_modules/.bin" ]; then
+				bindir="${rootdir}/node_modules/.bin"
+				break
+			fi
+			rootdir=$(dirname "${rootdir}")
+			if [ "${rootdir}" = / ]; then
+				break
+			fi
+		done
+
+		if [ -n "${bindir}" ]; then
+			if [ -x "${bindir}/tsc" ]; then
+				cat <<-EOF
+					[tsserver]
+					root_globs = ['tsconfig.json', '.git']
+					command = '${bindir}/tsc'
+					args = ['--lsp', '--stdio']
+				EOF
+			fi
+
+			if [ -x "${bindir}/oxfmt" ]; then
+				cat <<-EOF
+					[oxfmt]
+					root_globs = ['.oxfmtrc.json', '.oxfmtrc.jsonc']
+					command = '${bindir}/oxfmt'
+					args = ['--lsp']
+				EOF
+			fi
+
+			if [ -x "${bindir}/oxlint" ]; then
+				cat <<-EOF
+					[oxlint]
+					root_globs = ['.oxlintrc.json', 'oxlint.config.ts']
+					command = '${bindir}/oxlint'
+					args = ['--lsp']
+				EOF
+			fi
+		fi
 	}
+}
+
+hook global BufSetOption filetype=(javascript|typescript) %{
+	js-lsp-setup
 
 	set buffer autoreload yes
 	map global insert <a-ret> '<a-;>x<a-;>| emmet<ret>'
