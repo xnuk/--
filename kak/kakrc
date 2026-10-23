@@ -424,7 +424,8 @@ hook global BufSetOption filetype=(javascript|typescript) %{
 	set buffer autoreload yes
 	map global insert <a-ret> '<a-;>x<a-;>| emmet<ret>'
 
-	hook buffer BufWritePost .* %{lsp-formatting oxfmt}
+	remove-hooks buffer oxfmt-on-save
+	hook -group oxfmt-on-save buffer BufWritePost .* %{lsp-formatting oxfmt}
 }
 
 hook global WinSetOption filetype=typescript %{
@@ -434,18 +435,19 @@ hook global WinSetOption filetype=typescript %{
 ### JSON ###
 hook global BufSetOption filetype=json %{
 	set-option buffer lsp_servers %sh{
-		echo "${kak_opt_kak_lsp_oxfmt_config}"
-		cat <<"EOF"
-		[vscode-json-languageserver]
-		root_globs = ['.git']
-		args = ['--stdio']
-EOF
+		# TODO: oxfmt
+		cat <<-EOF
+			[vscode-json-languageserver]
+			root_globs = ['.git']
+			args = ['--stdio']
+		EOF
 	}
 
 	set buffer autoreload yes
 	set buffer extra_word_chars '_' '-'
 
-	hook buffer BufWritePost .* %{lsp-formatting oxfmt}
+	remove-hooks buffer oxfmt-on-save
+	hook -group oxfmt-on-save buffer BufWritePost .* %{lsp-formatting oxfmt}
 }
 
 ### YAML ###
@@ -489,7 +491,8 @@ hook global BufSetOption filetype=terraform %{
 	set buffer autoreload yes
 	set buffer extra_word_chars '_' '-'
 
-	hook buffer BufWritePost .* lsp-formatting-sync
+	remove-hooks buffer terraform-on-save
+	hook -group terraform-on-save buffer BufWritePost .* lsp-formatting-sync
 }
 
 ### Go ###
@@ -508,7 +511,8 @@ hook global BufSetOption filetype=go %{
 		"ui.completion.usePlaceholders" = true
 	}
 
-	hook buffer BufWritePost .* lsp-formatting-sync
+	remove-hooks buffer gopls-on-save
+	hook -group gopls-on-save buffer BufWritePost .* lsp-formatting-sync
 }
 
 ### Rust ###
@@ -523,7 +527,8 @@ hook global BufSetOption filetype=rust %{
 		check.command = 'clippy'
 	}
 
-	hook buffer BufWritePost .* lsp-formatting-sync
+	remove-hooks buffer rust-on-save
+	hook -group rust-on-save buffer BufWritePost .* lsp-formatting-sync
 }
 
 hook global WinSetOption filetype=rust %{
@@ -546,7 +551,8 @@ hook global BufSetOption filetype=python %{
 		ignore_last="ruby -e 'system *ARGV[0...-1]'"
 		printf "%s pycodestyle --format='%s' %s" "$ignore_last" "$format" "$kak_buffile"
 	}
-	hook buffer BufWritePost .* format
+	remove-hooks buffer black-on-save
+	hook -group black-on-save buffer BufWritePost .* format
 }
 
 # Enable ShellCheck for kak/sh
