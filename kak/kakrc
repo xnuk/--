@@ -379,7 +379,16 @@ define-command -hidden js-lsp-setup %{
 		done
 
 		if [ -n "${bindir}" ]; then
-			if [ -x "${bindir}/tsc" ]; then
+			# typescript < 7
+			if [ -x "${bindir}/tsserver" ]; then
+				cat <<-EOF
+					[tsserver]
+					root_globs = ['tsconfig.json', '.git']
+					command = 'typescript-language-server'
+					args = ['--stdio']
+				EOF
+			# typescript >= 7
+			elif [ -x "${bindir}/tsc" ]; then
 				cat <<-EOF
 					[tsserver]
 					root_globs = ['tsconfig.json', '.git']
