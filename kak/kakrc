@@ -486,10 +486,9 @@ hook global BufSetOption filetype=terraform %{
 ### Go ###
 hook global BufSetOption filetype=go %{
 	set-option buffer lsp_servers %{
-		[language_server.gopls]
+		[gopls]
 		root_globs = ['Gopkg.toml', 'go.mod', '.git']
-		command = 'gopls'
-		[language_server.gopls.settings.gopls]
+		[gopls.settings.gopls]
 		hints.assignVariableTypes = true
 		hints.compositeLiteralFields = true
 		hints.compositeLiteralTypes = true
@@ -526,7 +525,7 @@ hook global WinSetOption filetype=rust %{
 hook global BufSetOption filetype=zig %{
 	set-option buffer lsp_servers %{
 		[zls]
-		roots = ['build.zig', '.git']
+		root_globs = ['build.zig', '.git']
 	}
 }
 
