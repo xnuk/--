@@ -311,7 +311,6 @@ hook global BufCreate .* %{
 }
 
 # kak-lsp - bring your own kak-lsp
-# eval %sh{kak-lsp --kakoune -s "$kak_session" --config "$kak_config/kak-lsp.toml"}
 eval %sh{kak-lsp}
 
 set global lsp_hover_anchor true
