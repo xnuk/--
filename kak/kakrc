@@ -362,69 +362,98 @@ define-command -hidden kak-lsp-enable-semantic-tokens %{
 
 ### JavaScript/TypeScript ###
 
-define-command -hidden js-lsp-setup %{
+define-command -hidden js-lsp-setup -params 1.. %{
 	set-option buffer lsp_servers %sh{
 		rootdir=$(dirname "${kak_buffile}")
 		bindir=
-		for _ in $(seq 10); do
+
+		# pick most outer node_modules/.bin folder
+		for _ in $(seq 20); do
+			if [ "${rootdir}" = "${HOME}" ] || [ "${rootdir}" = / ]; then
+				break
+			fi
 			if [ -d "${rootdir}/node_modules/.bin" ]; then
 				bindir="${rootdir}/node_modules/.bin"
+			fi
+			if [ -e "${rootdir}/.git" ] || [ -e "${rootdir}/pnpm-workspace.yaml" ]; then
 				break
 			fi
 			rootdir=$(dirname "${rootdir}")
-			if [ "${rootdir}" = / ]; then
-				break
-			fi
 		done
 
-		if [ -n "${bindir}" ]; then
-			# typescript < 7
-			if [ -x "${bindir}/tsserver" ]; then
+		has() {
+			[ -n "${bindir}" ] && [ -x "${bindir}/$1" ]
+		}
+
+		for name in "$@"; do
+			case "$name" in
+			tsserver)
+				# typescript < 7
+				if has tsserver; then
+					cat <<-EOF
+						[tsserver]
+						root_globs = ['tsconfig.json', '.git']
+						command = 'typescript-language-server'
+						args = ['--stdio']
+					EOF
+				# typescript >= 7
+				elif has tsc; then
+					cat <<-EOF
+						[tsserver]
+						root_globs = ['tsconfig.json', '.git']
+						command = '${bindir}/tsc'
+						args = ['--lsp', '--stdio']
+					EOF
+				fi
+			;;
+			oxfmt)
+				if has oxfmt; then
+					cat <<-EOF
+						[oxfmt]
+						root_globs = ['.oxfmtrc.json', '.oxfmtrc.jsonc']
+						command = '${bindir}/oxfmt'
+						args = ['--lsp']
+					EOF
+				fi
+			;;
+			oxlint)
+				if has oxlint; then
+					cat <<-EOF
+						[oxlint]
+						root_globs = ['.oxlintrc.json', 'oxlint.config.ts']
+						command = '${bindir}/oxlint'
+						args = ['--lsp']
+					EOF
+				fi
+			;;
+			json)
 				cat <<-EOF
-					[tsserver]
-					root_globs = ['tsconfig.json', '.git']
-					command = 'typescript-language-server'
+					[vscode-json-languageserver]
+					root_globs = ['.git']
 					args = ['--stdio']
 				EOF
-			# typescript >= 7
-			elif [ -x "${bindir}/tsc" ]; then
-				cat <<-EOF
-					[tsserver]
-					root_globs = ['tsconfig.json', '.git']
-					command = '${bindir}/tsc'
-					args = ['--lsp', '--stdio']
-				EOF
-			fi
+			;;
+			*) ;;
+			esac
+		done
+	}
 
-			if [ -x "${bindir}/oxfmt" ]; then
-				cat <<-EOF
-					[oxfmt]
-					root_globs = ['.oxfmtrc.json', '.oxfmtrc.jsonc']
-					command = '${bindir}/oxfmt'
-					args = ['--lsp']
-				EOF
-			fi
+	remove-hooks buffer oxfmt-on-save
 
-			if [ -x "${bindir}/oxlint" ]; then
-				cat <<-EOF
-					[oxlint]
-					root_globs = ['.oxlintrc.json', 'oxlint.config.ts']
-					command = '${bindir}/oxlint'
-					args = ['--lsp']
-				EOF
-			fi
-		fi
+	evaluate-commands %sh{
+		case "$kak_opt_lsp_servers" in
+		*'[oxfmt]'*)
+			echo 'hook -group oxfmt-on-save buffer BufWritePost .* %{lsp-formatting oxfmt}'
+		;;
+		esac
 	}
 }
 
 hook global BufSetOption filetype=(javascript|typescript) %{
-	js-lsp-setup
+	js-lsp-setup tsserver oxfmt oxlint
 
 	set buffer autoreload yes
-	map global insert <a-ret> '<a-;>x<a-;>| emmet<ret>'
-
-	remove-hooks buffer oxfmt-on-save
-	hook -group oxfmt-on-save buffer BufWritePost .* %{lsp-formatting oxfmt}
+	map buffer insert <a-ret> '<a-;>x<a-;>| emmet<ret>'
 }
 
 hook global WinSetOption filetype=typescript %{
@@ -433,20 +462,10 @@ hook global WinSetOption filetype=typescript %{
 
 ### JSON ###
 hook global BufSetOption filetype=json %{
-	set-option buffer lsp_servers %sh{
-		# TODO: oxfmt
-		cat <<-EOF
-			[vscode-json-languageserver]
-			root_globs = ['.git']
-			args = ['--stdio']
-		EOF
-	}
+	js-lsp-setup oxfmt json
 
 	set buffer autoreload yes
 	set buffer extra_word_chars '_' '-'
-
-	remove-hooks buffer oxfmt-on-save
-	hook -group oxfmt-on-save buffer BufWritePost .* %{lsp-formatting oxfmt}
 }
 
 ### YAML ###
@@ -463,7 +482,7 @@ hook global BufSetOption filetype=yaml %{
 
 ### CSS ###
 hook global BufSetOption filetype=css %{
-	set-option buffer lsp_servers %opt{kak_lsp_oxfmt_config}
+	js-lsp-setup oxfmt
 
 	set buffer autoreload yes
 	set buffer extra_word_chars '_' '-'
@@ -471,12 +490,12 @@ hook global BufSetOption filetype=css %{
 
 ### HTML ###
 hook global BufSetOption filetype=html %{
-	set-option buffer lsp_servers %opt{kak_lsp_oxfmt_config}
+	js-lsp-setup oxfmt
 
 	set buffer autoreload yes
 	set buffer extra_word_chars '_' '-'
 
-	map global insert <a-ret> '<a-;>x<a-;>| emmet<ret>'
+	map buffer insert <a-ret> '<a-;>x<a-;>| emmet<ret>'
 }
 
 ### Terraform ###
