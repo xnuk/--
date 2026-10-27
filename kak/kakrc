@@ -403,7 +403,7 @@ define-command -hidden js-lsp-setup -params 1.. %{
 					cat <<-EOF
 						[tsserver]
 						root_globs = ['tsconfig.json', '.git']
-						command = '${bindir}/tsc'
+						command = '''${bindir}/tsc'''
 						args = ['--lsp', '--stdio']
 					EOF
 				fi
@@ -413,7 +413,7 @@ define-command -hidden js-lsp-setup -params 1.. %{
 					cat <<-EOF
 						[oxfmt]
 						root_globs = ['.oxfmtrc.json', '.oxfmtrc.jsonc']
-						command = '${bindir}/oxfmt'
+						command = '''${bindir}/oxfmt'''
 						args = ['--lsp']
 					EOF
 				fi
@@ -423,7 +423,7 @@ define-command -hidden js-lsp-setup -params 1.. %{
 					cat <<-EOF
 						[oxlint]
 						root_globs = ['.oxlintrc.json', 'oxlint.config.ts']
-						command = '${bindir}/oxlint'
+						command = '''${bindir}/oxlint'''
 						args = ['--lsp']
 					EOF
 				fi
